@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import properties.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,8 +32,11 @@ public class MyModel extends Observable implements Model {
 	private Map<String, Maze3d> mazes = new ConcurrentHashMap<String, Maze3d>();
 	private Map<String, Solution<Position>> solutions = new ConcurrentHashMap<String, Solution<Position>>();
 	private ExecutorService executor;
+	private Properties properties;
+
 	
 	public MyModel(){
+		properties = PropertiesLoader.getInstance().getProperties();
 		executor = Executors.newFixedThreadPool(79);
 	}
 	
