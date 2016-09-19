@@ -39,6 +39,10 @@ public class CommandManager {
 		commands.put("load_maze", new LoadMazeFromFileCommand());
 		commands.put("solve", new SolveMazeCommand());
 		commands.put("display_solution", new DisplaySolutionCommand());
+		commands.put("maze_saved", new MazeSavedCommand());
+		commands.put("maze_loaded", new MazeLoadedCommand());
+		commands.put("maze_ready", new MazeReadyCommand());
+		commands.put("maze_solved", new MazeSolvedCommand());
 		commands.put("exit", new ExitCommand());
 		
 		return commands;
@@ -73,10 +77,9 @@ public class CommandManager {
 		public void doCommand(String[] args){
 			String path = args[0];
 			String dir = model.getDirectoryContents(path);
-			view.displayDirectoryContents(dir);
+			view.displayMessage(dir);
 		}
 	}
-	
 
 	/**
 	 * This Class defines the objects that will be used for `Get Cross Section` method in class model
@@ -90,10 +93,10 @@ public class CommandManager {
 			char axis = args[1].charAt(0);
 			String name = args[2];
 			int[][] maze2d = model.getCrossSectionBy(index, axis, name);
-			view.displayCrossSectionBy(maze2d);
+			view.displayMessage(maze2d.toString());
 			}
 		catch(NumberFormatException e){
-			System.out.println("Not a valid index");
+			System.err.println("Not a valid index");
 			}
 		}
 	}
@@ -124,7 +127,6 @@ public class CommandManager {
 		}
 	}
 	
-
 	/**
 	 * This Class defines the objects that will be used for `Solve Maze` method in class model
 	 * This Class`s functionality is implement in the doCommand method 
@@ -151,17 +153,6 @@ public class CommandManager {
 	}
 
 	/**
-	 * This Class defines the objects that will be used for `Exit` method in class model
-	 * This Class`s functionality is implement in the doCommand method 
-	 */
-	public class ExitCommand implements Command{
-		@Override
-		public void doCommand(String[] args){
-			model.exit();
-		}
-	}
-
-	/**
 	 * This Class defines the objects that will be used for `Display Maze` method in class My View
 	 * This Class`s functionality is implement in the doCommand method 
 	 */
@@ -170,7 +161,7 @@ public class CommandManager {
 		public void doCommand(String[] args){
 			String name = args[0];
 			Maze3d maze = model.getMaze(name);
-			view.displayMaze(maze);
+			view.displayMessage(maze.toString());
 		}
 	}	
 
@@ -183,8 +174,51 @@ public class CommandManager {
 		public void doCommand(String[] args){
 			String name = args[0];
 			Solution<Position> sol = model.getMazeSolution(name);
-			view.displaySolution(sol);
+			view.displayMessage(sol.toString());
 			
+		}
+	}
+	
+	public class MazeSolvedCommand implements Command {
+		@Override
+		public void doCommand(String[] args){
+			String name = args[0];
+			view.displayMessage(name + " maze was solved");
+		}
+	}	
+	
+	public class MazeLoadedCommand implements Command {
+		@Override
+		public void doCommand(String[] args){
+			String name = args[0];
+			view.displayMessage(name + " maze was loaded, Have Fun!");
+		}
+	}
+	
+	public class MazeReadyCommand implements Command {
+		@Override
+		public void doCommand(String[] args){
+			String name = args[0];
+			view.displayMessage(name + " maze is ready, Have Fun!");
+		}
+	}
+	
+	public class MazeSavedCommand implements Command {
+		@Override
+		public void doCommand(String[] args){
+			String name = args[0];
+			view.displayMessage(name + " maze was saved succesfully");
+		}
+	}
+	
+/**
+ * This Class defines the objects that will be used for `Exit` method in class model
+ * This Class`s functionality is implement in the doCommand method 
+ */
+public class ExitCommand implements Command{
+	@Override
+	public void doCommand(String[] args){
+		model.exit();
 		}
 	}
 }
