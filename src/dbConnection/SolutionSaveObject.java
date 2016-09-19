@@ -15,14 +15,14 @@ import algorithms.search.Solution;
 
 public class SolutionSaveObject {
 	
-    public Solution<Position> javaObject=null;
+    public Solution<Position> solution=null;
 
-    public Solution<Position> getJavaObject() {
-        return javaObject;
+    public Solution<Position> getSolution() {
+        return solution;
     }
 
-    public void setJavaObject(Solution<Position> javaObject) {
-        this.javaObject = javaObject;
+    public void setSolution(Solution<Position> solution) {
+        this.solution = solution;
     }
     
     public  void saveObject(String name) throws Exception
@@ -35,7 +35,7 @@ public class SolutionSaveObject {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
 
-        oos.writeObject(javaObject);
+        oos.writeObject(solution);
         oos.flush();
         oos.close();
         bos.close();

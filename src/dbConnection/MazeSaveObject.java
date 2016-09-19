@@ -15,14 +15,14 @@ import algorithms.mazeGenerators.Maze3d;
 
 public class MazeSaveObject {
 	
-    public Maze3d javaObject=null;
+    public Maze3d maze=null;
 
-    public Maze3d getJavaObject() {
-        return javaObject;
+    public Maze3d getMaze() {
+        return maze;
     }
 
-    public void setJavaObject(Maze3d javaObject) {
-        this.javaObject = javaObject;
+    public void setMaze(Maze3d Maze) {
+        this.maze = Maze;
     }
     
     public  void saveObject(String name) throws Exception
@@ -35,7 +35,7 @@ public class MazeSaveObject {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
 
-        oos.writeObject(javaObject);
+        oos.writeObject(maze);
         oos.flush();
         oos.close();
         bos.close();
