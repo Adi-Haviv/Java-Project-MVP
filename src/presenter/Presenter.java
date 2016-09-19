@@ -20,7 +20,8 @@ public class Presenter implements Observer {
 			commandManager = new CommandManager(model, view);
 			commands = commandManager.getCommandsMap();
 		}
-
+		
+		
 		@Override
 		public void update(Observable o, Object arg) {
 			String commandLine = (String)arg;
