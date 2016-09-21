@@ -1,0 +1,72 @@
+package guiDemo;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Text;
+
+public class GenerateMazeWindow extends DialogWindow {
+	
+	@Override
+	protected void initWidgets() {
+		shell.setText("Generate maze window");
+		shell.setSize(300, 200);		
+				
+		shell.setLayout(new GridLayout(2, false));	
+				
+		Label lblRows = new Label(shell, SWT.NONE);
+		lblRows.setText("Rows: ");
+		
+		Text txtRows = new Text(shell, SWT.BORDER);
+		txtRows.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		Label lblColumns = new Label(shell, SWT.NONE);
+		lblColumns.setText("Columns: ");
+		
+		Text txtColumns = new Text(shell, SWT.BORDER);
+		txtColumns.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		Label lblFloors = new Label(shell, SWT.NONE);
+		lblFloors.setText("Floors: ");
+		
+		Text txtFloors = new Text(shell, SWT.BORDER);
+		txtFloors.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		Button btnGenerateMaze = new Button(shell, SWT.PUSH);
+		shell.setDefaultButton(btnGenerateMaze);
+		btnGenerateMaze.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1));
+		btnGenerateMaze.setText("Generate maze");
+		
+		btnGenerateMaze.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {				
+				MessageBox msg = new MessageBox(shell, SWT.OK);
+				msg.setText("Title");
+				//msg.setMessage("Button was clicked");
+				int rows = Integer.parseInt(txtRows.getText());
+				int columns = Integer.parseInt(txtColumns.getText());
+				int floors = Integer.parseInt(txtFloors.getText());
+				
+				msg.setMessage("Generating maze with " + rows + " rows, " + columns + " columns and " + floors + " floors. Woo Pi Doo ");
+				msg.open();
+				shell.close();
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {			
+				
+			}
+		});	
+		
+	}
+
+}

@@ -23,6 +23,10 @@ public class Run {
 		view.addObserver(presenter);
 				
 		view.start();
+		
+		//the commands for the gui 
+		//	MazeWindow win = new MazeWindow();
+		//win.start();
 	}
 
 }
