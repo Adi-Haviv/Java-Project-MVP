@@ -1,11 +1,7 @@
 package guiDemo;
 
-import java.awt.Graphics;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-
-import com.sun.xml.internal.bind.v2.TODO;
-
 
 public class Character {
 	private Position pos;
@@ -26,7 +22,6 @@ public class Character {
 	public void setPos(Position pos) {
 		this.pos = pos;
 	}
-	//TODO check with haviv if we`re going to use cube or something else to draw our maze
 	public void draw(int cellWidth, int cellHeight, GC gc) {
 		gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, 
 				cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
@@ -36,23 +31,22 @@ public class Character {
 		pos.x++;
 	}
 	
-	/*
-	 * public void moveLeft() {
+	public void moveLeft() {
 		pos.x--;
 	}
 	
-		public void moveUp() {
+	public void moveFwd() {
 		pos.y++;
 	}
-		public void moveDown() {
+	public void moveBwd() {
 		pos.y--;
 	}
 		
-		public void moveFwd() {
+	public void moveUp() {
 		pos.z++;
 	}
-		public void moveBwd() {
+	public void moveDown() {
 		pos.z--;
 	}
-	*/
+	
 }
