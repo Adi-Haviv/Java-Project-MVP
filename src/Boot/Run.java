@@ -3,6 +3,8 @@ package Boot;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+
+import guiDemo.MazeWindow;
 import model.MyModel;
 import presenter.Presenter;
 import view.MyView;
@@ -24,9 +26,10 @@ public class Run {
 				
 		view.start();
 		
-		//the commands for the gui 
-		//MazeWindow win = new MazeWindow();
-		//win.start();
+//		the commands for the gui 
+		MazeWindow win = new MazeWindow();
+		win.addObserver(presenter);
+		win.start();
 	}
 
 }
