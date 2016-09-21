@@ -1,5 +1,8 @@
 package guiDemo;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -8,8 +11,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
-public class MazeWindow extends Window {
+public class MazeWindow extends Window implements Observer{
 
 	private MazeDisplay mazeDisplay;
 	private Character character;
@@ -48,5 +52,12 @@ public class MazeWindow extends Window {
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
 	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		shell.remove
+	}
+	
+	
 
 }

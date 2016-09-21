@@ -37,7 +37,8 @@ public class MazeDisplay extends Canvas {
 		super(parent, style);
 		character = new Character();
 		character.setPos(new Position(1, 1, 1));
-						
+		
+		
 		this.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -51,7 +52,6 @@ public class MazeDisplay extends Canvas {
 				Position pos = character.getPos();
 				switch (e.keyCode) {
 				case SWT.ARROW_RIGHT:					
-					//character.setPos(new Position(pos.x + 1, pos.y));
 					character.moveRight();
 					redraw();
 					break;
@@ -69,7 +69,7 @@ public class MazeDisplay extends Canvas {
 			@Override
 			public void paintControl(PaintEvent e) {
 				e.gc.setForeground(new Color(null,0,0,0));
-				   e.gc.setBackground(new Color(null,0,0,0));
+				   e.gc.setBackground(new Color(null,152,117,186));
 				   
 
 				   int width=getSize().x;
@@ -84,6 +84,11 @@ public class MazeDisplay extends Canvas {
 				          int y=i*h;
 				          if(mazeData[i][j]!=0)
 				              e.gc.fillRectangle(x,y,w,h);
+				          else{
+				        	  e.gc.setBackground(new Color(null,255,255,255));
+				        	  e.gc.fillRectangle(x,y,w,h);
+				        	  e.gc.setBackground(new Color(null,152,117,186));
+				          }
 				      }
 				   
 				 
