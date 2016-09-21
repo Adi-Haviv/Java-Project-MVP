@@ -1,20 +1,31 @@
 package guiDemo;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 
 public class GenerateMazeWindow extends DialogWindow {
 	
+	public void performZoom(int count) {
+		if(count > 0){
+			int width = shell.getSize().x;
+			int height = shell.getSize().y;
+			shell.setSize((int)(width * 1.05), (int)(height * 1.05));
+		}
+	else {
+		int width = shell.getSize().x;
+		int height = shell.getSize().y;
+		shell.setSize((int)(width * 0.95), (int)(height * 0.95));
+		}
+	}
 	@Override
 	protected void initWidgets() {
 		shell.setText("Generate maze window");
@@ -66,6 +77,15 @@ public class GenerateMazeWindow extends DialogWindow {
 				
 			}
 		});	
+		
+		shell.addMouseWheelListener(new MouseWheelListener() {
+    	    @Override
+    	   public void mouseScrolled(MouseEvent g) {
+    	        if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
+    	        	performZoom(g.count);
+    	        	}		
+                }
+         });
 		
 	}
 

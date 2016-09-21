@@ -13,7 +13,7 @@ public class Character {
 	
 	public Character() {
 		try {
-			img = new Image(null, "/Java-Project-MVP/Images/images.png");
+			img = new Image(null, "Images/images.png");
 		} catch (IllegalArgumentException e) {
 		e.printStackTrace();
 			}
@@ -37,7 +37,6 @@ public class Character {
 	}
 	
 	/*
-	 * ???????????????????????????????
 	 * public void moveLeft() {
 		pos.x--;
 	}

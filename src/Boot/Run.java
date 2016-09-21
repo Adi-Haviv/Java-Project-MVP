@@ -25,7 +25,7 @@ public class Run {
 		view.start();
 		
 		//the commands for the gui 
-		//	MazeWindow win = new MazeWindow();
+		//MazeWindow win = new MazeWindow();
 		//win.start();
 	}
 

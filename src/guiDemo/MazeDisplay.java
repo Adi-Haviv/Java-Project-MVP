@@ -17,7 +17,8 @@ import org.eclipse.swt.widgets.Composite;
 
 public class MazeDisplay extends Canvas {
 	
-	private int[][] mazeData = {
+	private int[][] mazeData = {		
+			
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,0,0,0,0,0,0,0,1,1,0,1,0,0,1},
 			{0,0,1,1,1,1,1,0,0,1,0,1,0,1,1},
