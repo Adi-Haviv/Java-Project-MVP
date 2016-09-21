@@ -31,7 +31,7 @@ public class GenerateMazeWindow extends DialogWindow {
 		shell.setText("Generate maze window");
 		shell.setSize(300, 200);		
 				
-		shell.setLayout(new GridLayout(2, false));	
+		shell.setLayout(new GridLayout(3, false));	
 				
 		Label lblRows = new Label(shell, SWT.NONE);
 		lblRows.setText("Rows: ");
