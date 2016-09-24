@@ -19,7 +19,6 @@ import view.View;
 public class MazeWindow extends Window implements View{
 
 	private MazeDisplay mazeDisplay;
-	private Character character;
 	
 	@Override
 	protected void initWidgets() {
@@ -62,7 +61,6 @@ public class MazeWindow extends Window implements View{
 			public void widgetSelected(SelectionEvent arg0) {
 				setChanged();
 				notifyObservers("solve");
-				shell.close();			
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
@@ -70,6 +68,24 @@ public class MazeWindow extends Window implements View{
 			}
 		});
 	
+	////////////////////////////////////////////////////////////////////////////////
+	//Save Maze Button
+	////////////////////////////////////////////////////////////////////////////////
+		Button btnSaveMaze = new Button(buttons, SWT.PUSH);
+		shell.setDefaultButton(btnSaveMaze);
+		btnSaveMaze.setText("Save maze");
+		btnSaveMaze.addSelectionListener(new SelectionListener() {		
+		@Override
+		public void widgetSelected(SelectionEvent arg0) {
+		setChanged();
+		notifyObservers("save_maze");
+		}
+		@Override
+		public void widgetDefaultSelected(SelectionEvent arg0) {
+		// TODO Auto-generated method stub
+		}
+		});
+
 	////////////////////////////////////////////////////////////////////////////////
 	//Directory Content Button
 	////////////////////////////////////////////////////////////////////////////////
@@ -95,7 +111,10 @@ public class MazeWindow extends Window implements View{
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
 	}
-	
+		
+	///////////////////////////////////////////////////////////////////////////////
+	//Generate Maze Options Window
+	////////////////////////////////////////////////////////////////////////////////
 	protected void showGenerateMazeOptions() {
 		Shell shell = new Shell();
 		shell.setText("Generate Maze");
@@ -161,6 +180,9 @@ public class MazeWindow extends Window implements View{
 	     });
 	}
 
+	///////////////////////////////////////////////////////////////////////////////
+	//Directory Content Window
+	////////////////////////////////////////////////////////////////////////////////
 	protected void showDirectoryContent() {
 		Shell shell = new Shell();
 		shell.setText("Directory Content");
@@ -222,7 +244,7 @@ public class MazeWindow extends Window implements View{
 		
 	}
 	////////////////////////////////////////////////////////////////////////////////
-	//Perfom zoom
+	//Perfom Zoom Method
 	////////////////////////////////////////////////////////////////////////////////
 	public void performZoom(int count) {
 		if(count > 0){
