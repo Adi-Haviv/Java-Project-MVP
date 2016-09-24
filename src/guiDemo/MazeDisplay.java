@@ -2,42 +2,33 @@ package guiDemo;
 
 import org.eclipse.swt.widgets.Canvas;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
 
 
 public class MazeDisplay extends Canvas {
 	
-	private int[][] mazeData = {		
-			
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,0,0,0,0,0,0,0,1,1,0,1,0,0,1},
-			{0,0,1,1,1,1,1,0,0,1,0,1,0,1,1},
-			{1,1,1,0,0,0,1,0,1,1,0,1,0,0,1},
-			{1,0,1,0,1,1,1,0,0,0,0,1,1,0,1},
-			{1,1,0,0,0,1,0,0,1,1,1,1,0,0,1},
-			{1,0,0,1,0,0,1,0,0,0,0,1,0,1,1},
-			{1,0,1,1,0,1,1,0,1,1,0,0,0,1,1},
-			{1,0,0,0,0,0,0,0,0,1,0,1,0,0,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,0,1,1}		
-	};
+	private int[][] mazeData; 
+	
+	public void setMazeData(int[][] mazeData) {
+		
+		//TODO add growingtree method and then present the cross section by z
+		
+		this.mazeData = mazeData;
+		this.redraw();
+	}
 	
 	private Character character;
 
-	public MazeDisplay(Composite parent, int style) {
+	public MazeDisplay(Shell parent, int style) {
 		super(parent, style);
 		character = new Character();
 		character.setPos(new Position(1, 1, 1));
-		
 		
 		this.addKeyListener(new KeyListener() {
 			
@@ -48,8 +39,8 @@ public class MazeDisplay extends Canvas {
 			}
 			
 			@Override
-			public void keyPressed(KeyEvent e) {
-				Position pos = character.getPos();
+			public void keyPressed(KeyEvent e) {				
+				 
 				switch (e.keyCode) {
 				case SWT.ARROW_RIGHT:					
 					character.moveRight();
@@ -57,7 +48,29 @@ public class MazeDisplay extends Canvas {
 					break;
 				
 				case SWT.ARROW_LEFT:					
-					character.setPos(new Position(pos.x - 1, pos.y, pos.z));
+					character.moveLeft();
+					redraw();
+					break;
+				
+				case SWT.ARROW_UP:
+					character.moveUp();
+					redraw();
+					break;
+				
+				case SWT.ARROW_DOWN:
+					character.moveDown();
+					redraw();
+					break;
+				//user press w case
+				//maybe we should add cross section by because were moving between floors?
+				case (87):
+					character.moveFwd();
+					redraw();
+					break;
+				//uset press s case
+				//The same shit from above
+				case (83):
+					character.moveBwd();
 					redraw();
 					break;
 				}
@@ -85,18 +98,16 @@ public class MazeDisplay extends Canvas {
 				          if(mazeData[i][j]!=0)
 				              e.gc.fillRectangle(x,y,w,h);
 				          else{
-				        	  e.gc.setBackground(new Color(null,255,255,255));
+				        	  e.gc.setBackground(new Color(null,255,255,255));//paint the background in white
 				        	  e.gc.fillRectangle(x,y,w,h);
-				        	  e.gc.setBackground(new Color(null,152,117,186));
+				        	  e.gc.setBackground(new Color(null,152,117,186)); //set the walls in purple :P
 				          }
 				      }
-				   
-				 
 				   character.draw(w, h, e.gc);
-				
 			}
 		});
 		
+		/* Irrelevant
 		TimerTask task = new TimerTask() {
 			
 			@Override
@@ -114,7 +125,7 @@ public class MazeDisplay extends Canvas {
 			}
 		};
 		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(task, 0, 500);
+		timer.scheduleAtFixedRate(task, 0, 500);*/
 	}
 
 }

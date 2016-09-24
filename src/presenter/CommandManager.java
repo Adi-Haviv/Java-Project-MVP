@@ -31,13 +31,13 @@ public class CommandManager {
 	 */
 	public HashMap<String, Command> getCommandsMap() {
 		HashMap<String, Command> commands = new HashMap<String, Command>();
-		commands.put("generate_maze", new GenerateMazeCommand());
-		commands.put("display", new DisplayMazeCommand());
-		commands.put("dir", new GetDirectoryContentsCommand());
+		commands.put("generate_maze", new GenerateMazeCommand());//Button
+		commands.put("display", new DisplayMazeCommand());//button
+		commands.put("dir", new GetDirectoryContentsCommand());//button
 		commands.put("display_cross_section", new GetCrossSectionByCommand());
 		commands.put("save_maze", new SaveMazeToFileCommand());
 		commands.put("load_maze", new LoadMazeFromFileCommand());
-		commands.put("solve", new SolveMazeCommand());
+		commands.put("solve", new SolveMazeCommand()); //button
 		commands.put("display_solution", new DisplaySolutionCommand());
 		commands.put("maze_saved", new MazeSavedCommand());
 		commands.put("maze_loaded", new MazeLoadedCommand());
