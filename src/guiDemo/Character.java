@@ -36,17 +36,17 @@ public class Character {
 	}
 	
 	public void moveFwd() {
-		pos.y++;
+		pos.z++;
 	}
 	public void moveBwd() {
-		pos.y--;
+		pos.z--;
 	}
 		
 	public void moveUp() {
-		pos.z++;
+		pos.y++;
 	}
 	public void moveDown() {
-		pos.z--;
+		pos.y--;
 	}
 	
 }

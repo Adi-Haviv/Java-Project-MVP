@@ -15,10 +15,7 @@ public class MazeDisplay extends Canvas {
 	
 	private int[][] mazeData; 
 	
-	public void setMazeData(int[][] mazeData) {
-		
-		//TODO add growingtree method and then present the cross section by z
-		
+	public void setMazeData(int[][] mazeData) {		
 		this.mazeData = mazeData;
 		this.redraw();
 	}
@@ -63,13 +60,26 @@ public class MazeDisplay extends Canvas {
 					break;
 				//user press w case
 				//maybe we should add cross section by because were moving between floors?
+				case (119):
+					character.moveFwd();
+					redraw();
+					break;
+				//user press w case
+				//maybe we should add cross section by because were moving between floors?
 				case (87):
 					character.moveFwd();
 					redraw();
 					break;
-				//uset press s case
+				//user press s case
 				//The same shit from above
 				case (83):
+					character.moveBwd();
+					redraw();
+					break;
+					
+				//user press s case
+				//The same shit from above
+				case (115):
 					character.moveBwd();
 					redraw();
 					break;

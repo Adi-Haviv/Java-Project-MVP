@@ -126,6 +126,15 @@ public class MazeWindow extends Window implements View{
 		}
 		});
 
+		shell.addMouseWheelListener(new MouseWheelListener() {
+			@Override
+			public void mouseScrolled(MouseEvent g) {
+			if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
+			performZoom(g.count);
+			}		
+			}
+			});
+
 		mazeDisplay = new MazeDisplay(shell, SWT.BORDER);	
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
@@ -180,29 +189,6 @@ public class MazeWindow extends Window implements View{
 			}
 		});
 		
-		mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
-		shell.open();
-		
-		shell.addMouseWheelListener(new MouseWheelListener() {
-		    @Override
-		   public void mouseScrolled(MouseEvent g) {
-		        if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
-		        	performZoom(g.count);
-		        	}		
-	            }
-	     });
-		
-		mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
-		shell.open();
-		
-		shell.addMouseWheelListener(new MouseWheelListener() {
-		    @Override
-		   public void mouseScrolled(MouseEvent g) {
-		        if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
-		        	performZoom(g.count);
-		        	}		
-	            }
-	     });
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -237,30 +223,8 @@ public class MazeWindow extends Window implements View{
 				
 			}
 		});
+
 		
-		mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
-		shell.open();
-		
-		shell.addMouseWheelListener(new MouseWheelListener() {
-		    @Override
-		   public void mouseScrolled(MouseEvent g) {
-		        if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
-		        	performZoom(g.count);
-		        	}		
-	            }
-	     });
-		
-		mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
-		shell.open();
-		
-		shell.addMouseWheelListener(new MouseWheelListener() {
-		    @Override
-		   public void mouseScrolled(MouseEvent g) {
-		        if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
-		        	performZoom(g.count);
-		        	}		
-	            }
-	     });
 	}
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -279,10 +243,10 @@ public class MazeWindow extends Window implements View{
 	Text txtPath = new Text(shell, SWT.BORDER);
 	txtPath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 	
-	Label lblFileName = new Label(shell, SWT.NONE);
-	lblFileName.setText("Name: ");	
-	Text txtFileName = new Text(shell, SWT.BORDER);
-	txtFileName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+	Label lblMazeName = new Label(shell, SWT.NONE);
+	lblMazeName.setText("Name: ");	
+	Text txtMazeName = new Text(shell, SWT.BORDER);
+	txtMazeName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 	
 	Button btnload = new Button(shell, SWT.PUSH);
 	btnload.setText("Load Maze");
@@ -291,37 +255,13 @@ public class MazeWindow extends Window implements View{
 	@Override
 	public void widgetSelected(SelectionEvent arg0) {
 	setChanged();
-	notifyObservers("load_maze " + txtFileName.getText() + " " + txtPath.getText());
+	notifyObservers("load_maze " + txtMazeName.getText() + " " + txtPath.getText());
 	shell.close();
 	}
 	@Override
 	public void widgetDefaultSelected(SelectionEvent arg0) {
 	// TODO Auto-generated method stub
 	
-	}
-	});
-	
-	mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
-	shell.open();
-	
-	shell.addMouseWheelListener(new MouseWheelListener() {
-	@Override
-	public void mouseScrolled(MouseEvent g) {
-	if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
-	performZoom(g.count);
-	}		
-	}
-	});
-	
-	mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
-	shell.open();
-	
-	shell.addMouseWheelListener(new MouseWheelListener() {
-	@Override
-	public void mouseScrolled(MouseEvent g) {
-	if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
-	performZoom(g.count);
-	}		
 	}
 	});
 	}
@@ -331,6 +271,7 @@ public class MazeWindow extends Window implements View{
 		// TODO Auto-generated method stub
 		
 	}
+	
 	////////////////////////////////////////////////////////////////////////////////
 	//Perfom Zoom Method
 	////////////////////////////////////////////////////////////////////////////////
