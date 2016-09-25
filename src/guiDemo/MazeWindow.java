@@ -29,13 +29,14 @@ public class MazeWindow extends Window implements View, Observer{
 			public void mouseScrolled(MouseEvent g) {
 			if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
 			performZoom(g.count);
-			}		
+				}
 			}
-			});
-		
+		});
 		mazeDisplay = new MazeDisplay(shell, SWT.BORDER);	
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
+		//mazeDisplay.update();
+		//mazeDisplay.redraw();
 	}
 
 	@Override
@@ -66,8 +67,6 @@ public class MazeWindow extends Window implements View, Observer{
 		notifyObservers(arg);
 		
 	}
-
-
 }
 
 

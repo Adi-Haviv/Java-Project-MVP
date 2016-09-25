@@ -24,6 +24,7 @@ import view.Cli;
 
 public class MyView extends Observable implements View, Observer {
 
+	
 	Cli cli;
 	PrintWriter out;
 	BufferedReader in;

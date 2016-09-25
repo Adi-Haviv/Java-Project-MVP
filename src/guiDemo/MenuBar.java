@@ -209,4 +209,7 @@ public class MenuBar extends Observable{
 		});
 		}
 
+	protected void displaymaze(){
+		
+	}
 }

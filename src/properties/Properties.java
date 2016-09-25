@@ -7,6 +7,7 @@ public class Properties implements Serializable {
 	private int numOfThreads;
 	private String generateMazeAlgorithm;
 	private String solveMazeAlgorithm;
+	private String userInterface;
 	
 	public Properties() {
 	}
@@ -30,5 +31,10 @@ public class Properties implements Serializable {
 		this.solveMazeAlgorithm = solveMazeAlgorithm;
 	}
 	
-	
+	public String getUserInterface() {
+		return userInterface;
+	}
+	public void setUserInterface(String userInterface) {
+		this.userInterface = userInterface;
+	}
 }
