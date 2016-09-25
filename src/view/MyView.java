@@ -5,11 +5,15 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.Executors;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
+import guiDemo.MazeWindow;
+import properties.Properties;
+import properties.PropertiesLoader;
 import view.Cli;
 
 
@@ -23,23 +27,29 @@ import view.Cli;
  */
 
 public class MyView extends Observable implements View, Observer {
-
-	
+	private Properties properties;	
 	Cli cli;
+	MazeWindow gui;
 	PrintWriter out;
 	BufferedReader in;
-	
+	String userInterface;
 	/**
 	 * C'Tor
 	 * @param in BufferedReader to be used for input.
 	 * @param out PrintWriter to be used for output.
 	 */
+	
+	public MyView(){
+		
+	}
 	public MyView(BufferedReader in, PrintWriter out){
 		this.in = in;
 		this.out = out;
 		
+		
 		this.cli = new Cli(in,out);
 		cli.addObserver(this);
+
 	}
 	
 	/**
