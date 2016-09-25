@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import algorithms.mazeGenerators.Maze3d;
 
@@ -15,13 +16,13 @@ import algorithms.mazeGenerators.Maze3d;
 
 public class MazeSaveObject {
 	
-    public Maze3d maze=null;
+    public byte[] maze=null;
 
-    public Maze3d getMaze() {
+    public byte[] getMaze() {
         return maze;
     }
 
-    public void setMaze(Maze3d Maze) {
+    public void setMaze(byte[] Maze) {
         this.maze = Maze;
     }
     
@@ -65,7 +66,7 @@ public class MazeSaveObject {
         ResultSet rs=null;
         String sql=null;
 
-        sql="select * from mazes where name LIKE '?'";
+        sql="select * from mazes where name LIKE ?";
 
         ps=conn.prepareStatement(sql);
         ps.setObject(1, name);
@@ -78,12 +79,20 @@ public class MazeSaveObject {
             ObjectInputStream ins;
 
             try {
-
+            	
             bais = new ByteArrayInputStream(rs.getBytes("maze"));
-
+            ArrayList<Byte> mazeByte = new ArrayList<Byte>();
             ins = new ObjectInputStream(bais);
-
-            Maze3d maze = (Maze3d) ins.readObject();
+            for (byte b : (byte[]) ins.readObject()) {
+            	mazeByte.add(new Byte(b));
+            }
+            byte[] mazeArr = new byte[mazeByte.size()];
+            int index = 0;
+            for (Byte b : mazeArr){
+            	mazeArr[index] = b.byteValue();
+            	index++;
+            }
+            Maze3d maze = new Maze3d(mazeArr);
 
             ins.close();
             

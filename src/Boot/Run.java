@@ -24,13 +24,13 @@ public class Run {
 		model.addObserver(presenter);
 		view.addObserver(presenter);
 //				
-//		view.start();
+		view.start();
 //		
 //		the commands for the gui 
-		MazeWindow win = new MazeWindow();
+//		MazeWindow win = new MazeWindow();
 		
 //		win.addObserver(presenter);
-		win.start();
+//		win.start();
 	}
 
 }

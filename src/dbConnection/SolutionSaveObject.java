@@ -15,13 +15,13 @@ import algorithms.search.Solution;
 
 public class SolutionSaveObject {
 	
-    public Solution<Position> solution=null;
+    public byte[] solution=null;
 
-    public Solution<Position> getSolution() {
+    public byte[] getSolution() {
         return solution;
     }
 
-    public void setSolution(Solution<Position> solution) {
+    public void setSolution(byte[] solution) {
         this.solution = solution;
     }
     
