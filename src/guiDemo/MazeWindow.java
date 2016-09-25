@@ -91,8 +91,8 @@ public class MazeWindow extends Window implements View{
 	////////////////////////////////////////////////////////////////////////////////
 		Button btnDir = new Button(buttons, SWT.PUSH);
 		shell.setDefaultButton(btnDir);
-		btnGenerateMaze.setText("Directory Content");
-		btnGenerateMaze.addSelectionListener(new SelectionListener() {		
+		btnDir.setText("Directory Content");
+		btnDir.addSelectionListener(new SelectionListener() {		
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				showDirectoryContent();
@@ -106,12 +106,32 @@ public class MazeWindow extends Window implements View{
 			}
 		});
 
+	////////////////////////////////////////////////////////////////////////////////
+	//Load Maze Button
+	////////////////////////////////////////////////////////////////////////////////
+		Button btnLoad = new Button(buttons, SWT.PUSH);
+		shell.setDefaultButton(btnLoad);
+		btnLoad.setText("Load Maze");
+		btnLoad.addSelectionListener(new SelectionListener() {		
+		@Override
+		public void widgetSelected(SelectionEvent arg0) {
+		loadMaze();
 		
+		}
+		
+		@Override
+		public void widgetDefaultSelected(SelectionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+		}
+		});
+
 		mazeDisplay = new MazeDisplay(shell, SWT.BORDER);	
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
 	}
 		
+	
 	///////////////////////////////////////////////////////////////////////////////
 	//Generate Maze Options Window
 	////////////////////////////////////////////////////////////////////////////////
@@ -122,6 +142,11 @@ public class MazeWindow extends Window implements View{
 		
 		GridLayout layout = new GridLayout(2, false);
 		shell.setLayout(layout);
+		
+		Label lblName = new Label(shell, SWT.NONE);
+		lblName.setText("Name: ");	
+		Text txtName = new Text(shell, SWT.BORDER);
+		txtName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		
 		Label lblRows = new Label(shell, SWT.NONE);
 		lblRows.setText("Rows: ");	
@@ -145,7 +170,7 @@ public class MazeWindow extends Window implements View{
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				setChanged();
-				notifyObservers("generate_maze" + txtRows.getText() + " " + txtColumns.getText() + " " + txtFloors.getText() + " ");
+				notifyObservers("generate_maze " + txtName.getText() + " " + txtRows.getText() + " " + txtColumns.getText() + " " + txtFloors.getText() + " ");
 				shell.close();
 			}
 			@Override
@@ -203,7 +228,7 @@ public class MazeWindow extends Window implements View{
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				setChanged();
-				notifyObservers("dir" + txtPath.getText());
+				notifyObservers("dir " + txtPath.getText());
 				shell.close();
 			}
 			@Override
@@ -236,6 +261,69 @@ public class MazeWindow extends Window implements View{
 		        	}		
 	            }
 	     });
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	//Load Maze Window
+	////////////////////////////////////////////////////////////////////////////////
+	protected void loadMaze() {
+	Shell shell = new Shell();
+	shell.setText("Maze Loader");
+	shell.setSize(300, 200);
+	
+	GridLayout layout = new GridLayout(2, false);
+	shell.setLayout(layout);
+	
+	Label lblPath = new Label(shell, SWT.NONE);
+	lblPath.setText("Path: ");	
+	Text txtPath = new Text(shell, SWT.BORDER);
+	txtPath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+	
+	Label lblFileName = new Label(shell, SWT.NONE);
+	lblFileName.setText("Name: ");	
+	Text txtFileName = new Text(shell, SWT.BORDER);
+	txtFileName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+	
+	Button btnload = new Button(shell, SWT.PUSH);
+	btnload.setText("Load Maze");
+	btnload.addSelectionListener(new SelectionListener() {
+	
+	@Override
+	public void widgetSelected(SelectionEvent arg0) {
+	setChanged();
+	notifyObservers("load_maze " + txtFileName.getText() + " " + txtPath.getText());
+	shell.close();
+	}
+	@Override
+	public void widgetDefaultSelected(SelectionEvent arg0) {
+	// TODO Auto-generated method stub
+	
+	}
+	});
+	
+	mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
+	shell.open();
+	
+	shell.addMouseWheelListener(new MouseWheelListener() {
+	@Override
+	public void mouseScrolled(MouseEvent g) {
+	if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
+	performZoom(g.count);
+	}		
+	}
+	});
+	
+	mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
+	shell.open();
+	
+	shell.addMouseWheelListener(new MouseWheelListener() {
+	@Override
+	public void mouseScrolled(MouseEvent g) {
+	if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
+	performZoom(g.count);
+	}		
+	}
+	});
 	}
 
 	@Override

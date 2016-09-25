@@ -36,7 +36,7 @@ public class CommandManager {
 		commands.put("dir", new GetDirectoryContentsCommand());//button
 		commands.put("display_cross_section", new GetCrossSectionByCommand());
 		commands.put("save_maze", new SaveMazeToFileCommand());//button
-		commands.put("load_maze", new LoadMazeFromFileCommand());
+		commands.put("load_maze", new LoadMazeFromFileCommand()); //button
 		commands.put("solve", new SolveMazeCommand()); //button
 		commands.put("display_solution", new DisplaySolutionCommand());
 		commands.put("maze_saved", new MazeSavedCommand());
