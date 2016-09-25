@@ -28,26 +28,26 @@ public class SolutionSaveObject {
     public  void saveObject(String name) throws Exception
     {
         try{
-        Connection conn= DriverManager.getConnection("jdbc:mysql://54.69.232.190:3306/damn-java", "root", "password");
-        PreparedStatement ps=null;
-        String sql=null;
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-
-        oos.writeObject(solution);
-        oos.flush();
-        oos.close();
-        bos.close();
-
-        byte[] data = bos.toByteArray();
-
-
-        sql="insert into solutions (name,solution) values (?,?)";
-        ps=conn.prepareStatement(sql);
-        ps.setObject(1, name);
-        ps.setObject(2, data);
-        ps.executeUpdate();
+	        Connection conn= DriverManager.getConnection("jdbc:mysql://52.37.202.40:3306/javadb", "javauser", "Ab123456!");
+	        PreparedStatement ps=null;
+	        String sql=null;
+	
+	        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	        ObjectOutputStream oos = new ObjectOutputStream(bos);
+	
+	        oos.writeObject(solution);
+	        oos.flush();
+	        oos.close();
+	        bos.close();
+	
+	        byte[] data = bos.toByteArray();
+	
+	
+	        sql="insert into solutions (name,solution) values (?,?)";
+	        ps=conn.prepareStatement(sql);
+	        ps.setObject(1, name);
+	        ps.setObject(2, data);
+	        ps.executeUpdate();
 
         }
         catch(Exception e)
@@ -60,7 +60,7 @@ public class SolutionSaveObject {
 
     public Solution<Position> getObject(String name) throws Exception
     {
-        Connection conn = DriverManager.getConnection("jdbc:mysql://54.69.232.190:3306/damn-java", "root", "password");
+        Connection conn= DriverManager.getConnection("jdbc:mysql://52.37.202.40:3306/javadb", "javauser", "Ab123456!");
         PreparedStatement ps=null;
         ResultSet rs=null;
         String sql=null;
