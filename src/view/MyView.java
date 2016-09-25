@@ -5,6 +5,11 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.Observable;
 import java.util.Observer;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
+
 import view.Cli;
 
 
@@ -45,10 +50,12 @@ public class MyView extends Observable implements View, Observer {
 	}
 	@Override
 	public void displayMessage(String msg) {
-		out.println(msg);
-		out.flush();		
+		MessageBox messageBox = new MessageBox(new Shell(), SWT.OK );
+		messageBox.setMessage(msg);
+		messageBox.setText("This is a Message Box");
+		messageBox.open();	
 	}
-
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o == cli) {

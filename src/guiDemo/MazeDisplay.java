@@ -58,21 +58,13 @@ public class MazeDisplay extends Canvas {
 					character.moveDown();
 					redraw();
 					break;
-				//user press w case
-				//maybe we should add cross section by because were moving between floors?
-				case (119):
+				
+				case SWT.PAGE_UP:
 					character.moveFwd();
 					redraw();
 					break;
-				//user press w case
-				//maybe we should add cross section by because were moving between floors?
-				case (87):
-					character.moveFwd();
-					redraw();
-					break;
-				//user press s case
-				//The same shit from above
-				case (83):
+				
+				case SWT.PAGE_DOWN:
 					character.moveBwd();
 					redraw();
 					break;
