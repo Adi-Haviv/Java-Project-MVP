@@ -180,12 +180,12 @@ public class MyModel extends Observable implements Model {
 	 * @param algorithm Solution algorithm to be used to solve the maze.
 	 */
 	@Override
-	public void solveMaze(String name, String algorithm) {
+	public void solveMaze(String name) {
 		Searcher<Position> searcher;
 		SearchableMazeAdapter maze = new SearchableMazeAdapter(mazes.get(name));
 		Solution<Position> sol;
 		
-		switch (algorithm.toUpperCase()) {
+		switch (properties.getSolveMazeAlgorithm().toUpperCase()) {
 		case "DFS":
 			searcher = new DFS<Position>();
 			sol = searcher.search(maze);

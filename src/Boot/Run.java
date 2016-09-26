@@ -14,8 +14,8 @@ import view.MyView;
 public class Run {
 	
 	public static void main(String[] args) {
-		Presenter presenter;
 		Properties properties = new Properties();
+		Presenter presenter;
 		MyView view;
 		MyModel model = new MyModel();	
 
@@ -23,14 +23,15 @@ public class Run {
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			PrintWriter out = new PrintWriter(System.out);		
 			view = new MyView(in, out);
+			presenter = new Presenter(model, view);
 		}
 		else{
 			view = new MyView();
+			presenter = new Presenter(model, view);
 			MazeWindow win = new MazeWindow();	
 			win.addObserver(presenter);
 			win.start();
 		}	
-		presenter = new Presenter(model,view);
 		model.addObserver(presenter);
 		view.addObserver(presenter);				
 		view.start();

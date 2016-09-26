@@ -135,8 +135,7 @@ public class CommandManager {
 		@Override
 		public void doCommand(String[] args){
 			String name = args[0];
-			String algorithm = args[1];
-			model.solveMaze(name, algorithm);
+			model.solveMaze(name);
 		}
 	}
 

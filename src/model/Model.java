@@ -18,7 +18,7 @@ public interface Model {
 	
 	void loadMazeFromFile(String filename, String name); //Realized in Command Manager
 	
-	void solveMaze(String name, String algorithm); //Realized in Command Manager
+	void solveMaze(String name); //Realized in Command Manager
 	
 	Solution<Position> getMazeSolution(String name); //Realized in Command Manager 
  	
