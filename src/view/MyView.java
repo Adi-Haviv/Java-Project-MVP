@@ -32,16 +32,19 @@ public class MyView extends Observable implements View, Observer {
 	MazeWindow gui;
 	PrintWriter out;
 	BufferedReader in;
-	String userInterface;
+
 	/**
 	 * C'Tor
 	 * @param in BufferedReader to be used for input.
 	 * @param out PrintWriter to be used for output.
 	 */
+	//C'TOR for GUI
 	
 	public MyView(){
 		
 	}
+	
+	//C'TOR for CLI
 	public MyView(BufferedReader in, PrintWriter out){
 		this.in = in;
 		this.out = out;
@@ -52,27 +55,38 @@ public class MyView extends Observable implements View, Observer {
 
 	}
 	
+	
+	
 	/**
 	 * Starts the cli and the programs functionality.
 	 */
 	@Override
 	public void start(){
+		if(properties.getUserInterface().equalsIgnoreCase("cli")){
 		cli.start();
+		}
+		else{
+		gui.start();
+		}
 	}
 	@Override
 	public void displayMessage(String msg) {
+		if(properties.getUserInterface().equalsIgnoreCase("cli")){
+		out.println(msg);
+		out.flush();
+		}
+		else{
 		MessageBox messageBox = new MessageBox(new Shell(), SWT.OK );
 		messageBox.setMessage(msg);
 		messageBox.setText("This is a Message Box");
 		messageBox.open();	
+		}
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o == cli) {
 			setChanged();
 			notifyObservers(arg);
-		}
 	}
 
 	@Override

@@ -67,6 +67,12 @@ public class MazeWindow extends Window implements View, Observer{
 		notifyObservers(arg);
 		
 	}
+
+	@Override
+	public void warningMessage(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

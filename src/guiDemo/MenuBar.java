@@ -29,26 +29,26 @@ public class MenuBar extends Observable{
 	    Menu fileMenu = new Menu(shell, SWT.DROP_DOWN);
 	    cascadeFileMenu.setMenu(fileMenu);
 	
-	    MenuItem subGenerateItem = new MenuItem(fileMenu, SWT.CASCADE);
+	    MenuItem subGenerateItem = new MenuItem(fileMenu, SWT.PUSH);
 	    subGenerateItem.setText("Generate Maze");
 	    subGenerateItem.addListener(SWT.Selection, event-> {
 	    	showGenerateMazeOptions();
 	     });
 	    
-	    MenuItem subSaveItem = new MenuItem(fileMenu, SWT.CASCADE);
+	    MenuItem subSaveItem = new MenuItem(fileMenu, SWT.PUSH);
 	    subSaveItem.setText("Save Maze");
 	    subSaveItem.addListener(SWT.Selection, event-> {
 	    	setChanged();
 	    	notifyObservers("save_maze");
 	     });
 	    
-	    MenuItem subLoadItem = new MenuItem(fileMenu, SWT.CASCADE);
+	    MenuItem subLoadItem = new MenuItem(fileMenu, SWT.PUSH);
 	    subLoadItem.setText("Load Maze From File");
 	    subLoadItem.addListener(SWT.Selection, event-> {
 	    	loadMaze();
 	     });
 	    
-	    MenuItem subDirItem = new MenuItem(fileMenu, SWT.CASCADE);
+	    MenuItem subDirItem = new MenuItem(fileMenu, SWT.PUSH);
 	    subDirItem.setText("Show Directory Content");
 	    subDirItem.addListener(SWT.Selection, event-> {
 	    	showDirectoryContent();
@@ -60,13 +60,13 @@ public class MenuBar extends Observable{
 	    Menu displayMenu = new Menu(shell, SWT.DROP_DOWN);
 	    cascadeDisplayMenu.setMenu(displayMenu);
 	    
-	    MenuItem subMazeItem = new MenuItem(displayMenu, SWT.CASCADE);
+	    MenuItem subMazeItem = new MenuItem(displayMenu, SWT.PUSH);
 	    subMazeItem.setText("Display Maze");
 	    
-	    MenuItem subCrossSectionItem = new MenuItem(displayMenu, SWT.CASCADE);
+	    MenuItem subCrossSectionItem = new MenuItem(displayMenu, SWT.PUSH);
 	    subCrossSectionItem.setText("Display Cross Section By...");
 	    
-	    MenuItem subSolutionItem = new MenuItem(displayMenu, SWT.CASCADE);
+	    MenuItem subSolutionItem = new MenuItem(displayMenu, SWT.PUSH);
 	    subSolutionItem.setText("Display Solution");
 	    
 	    MenuItem cascadeGameMenu = new MenuItem(menuBar, SWT.CASCADE);
@@ -75,20 +75,32 @@ public class MenuBar extends Observable{
 	    Menu gameMenu = new Menu(shell, SWT.DROP_DOWN);
 	    cascadeGameMenu.setMenu(gameMenu);
 	    
-	    MenuItem subHintItem = new MenuItem(gameMenu, SWT.CASCADE);
+	    MenuItem subHintItem = new MenuItem(gameMenu, SWT.PUSH);
 	    subHintItem.setText("Hit Me With a Hint");
 	    
-	    MenuItem subSolveItem = new MenuItem(gameMenu, SWT.CASCADE);
+	    MenuItem subSolveItem = new MenuItem(gameMenu, SWT.PUSH);
 	    subSolveItem.setText("Please Master, Solve Me The Maze");
 	    subSolveItem.addListener(SWT.Selection, event-> {
 	    	setChanged();
 	    	notifyObservers("solve");
 	     });
 	    
-	    MenuItem propertiesItem = new MenuItem(menuBar, SWT.PUSH);
-	    propertiesItem.setText("&Properties");
-	    propertiesItem.addListener(SWT.SELECTED, event->{
-	    	openProperties();
+	    MenuItem cascadePropertiesMenu = new MenuItem(menuBar, SWT.CASCADE);
+	    cascadePropertiesMenu.setText("&Properties");
+	    
+	    Menu propertiesMenu = new Menu(shell, SWT.DROP_DOWN);
+	    cascadePropertiesMenu.setMenu(propertiesMenu);
+	    
+	    MenuItem subImportItem = new MenuItem(propertiesMenu, SWT.PUSH);
+	    subImportItem.setText("Import Properties from XML");
+	    subImportItem.addListener(SWT.Selection, event->{
+	    	importProperties();
+	    });
+	    
+	    MenuItem subGeneratePropItem = new MenuItem(propertiesMenu, SWT.PUSH);
+	    subGeneratePropItem.setText("Generate Properties");
+	    subImportItem.addListener(SWT.Selection, event->{
+	    	generateProperties();
 	    });
 	    
 	    MenuItem exitItem = new MenuItem(menuBar, SWT.PUSH);
@@ -219,5 +231,10 @@ public class MenuBar extends Observable{
 		
 	}
 
-	protected void openProperties(){};
+	protected void importProperties(){
+		Shell shell = new Shell();
+		shell.setText("t");
+		shell.setSize(300, 200);
+	};
+	protected void generateProperties(){};
 }
