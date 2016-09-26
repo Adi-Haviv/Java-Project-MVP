@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 
 public class SaveObject {
 
@@ -40,14 +42,25 @@ public class SaveObject {
         bos.close();
 
         byte[] data = bos.toByteArray();
-
-
-        sql="insert into ? (name, maze) values(?,?)";
-        ps=conn.prepareStatement(sql);
-        ps.setObject(1, table);
-        ps.setObject(2, name);
-        ps.setObject(3, data);
-        ps.executeUpdate();
+        try{
+        	sql="insert into " + table + " (name, data) values(?,?)";
+            ps=conn.prepareStatement(sql);
+            ps.setObject(1, name);
+            ps.setObject(2, data);
+            ps.executeUpdate();        	
+        }
+        catch(MySQLIntegrityConstraintViolationException e){
+        	sql="delete from " + table + " where id=(select id from (select * from "+ table + ") as whatever where name like ?)";
+            ps=conn.prepareStatement(sql);
+            ps.setObject(1, name);
+            ps.executeUpdate();
+            
+            sql="insert into " + table + " (name, data) values(?,?)";
+            ps=conn.prepareStatement(sql);
+            ps.setObject(1, name);
+            ps.setObject(2, data);
+            ps.executeUpdate();
+        }
 
         }
         catch(Exception e)
@@ -66,11 +79,10 @@ public class SaveObject {
         ResultSet rs=null;
         String sql=null;
 
-        sql="select * from ? where name LIKE ?";
+        sql="select * from " + table + " where name LIKE ?";
         
         ps=conn.prepareStatement(sql);
-        ps.setObject(1, table);
-        ps.setObject(2, name);
+        ps.setObject(1, name);
         rs=ps.executeQuery();
 
         if(rs.next())
@@ -81,7 +93,7 @@ public class SaveObject {
 
             try {
 
-            bais = new ByteArrayInputStream(rs.getBytes("javaObject"));
+            bais = new ByteArrayInputStream(rs.getBytes("data"));
 
             ins = new ObjectInputStream(bais);
 

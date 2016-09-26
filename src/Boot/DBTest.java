@@ -15,13 +15,13 @@ public class DBTest {
 		
 		so.setJavaObject(maze);
 		try {
-			so.saveObject("itzik1");
+			so.saveObject("mazes","itzik2");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			Maze3d newMaze = (Maze3d) so.getObject("itzik1");
+			Maze3d newMaze = (Maze3d) so.getObject("mazes", "itzik2");
 			System.out.println(Arrays.deepToString(newMaze.getCrossSectionByX(2)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
