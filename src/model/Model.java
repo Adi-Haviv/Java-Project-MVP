@@ -14,9 +14,13 @@ public interface Model {
 	
 	int[][] getCrossSectionBy(int index, char axis, String name); //Realized in Command Manager
 	
-	void saveMazeToFile(String name, String filename); //Realized in Command Manager
+//	void saveMazeToFile(String name, String filename); //Realized in Command Manager
+//	
+//	void loadMazeFromFile(String filename, String name); //Realized in Command Manager
 	
-	void loadMazeFromFile(String filename, String name); //Realized in Command Manager
+	void saveMazeToDB(String name);
+	
+	void loadMazeFromDB(String name);
 	
 	void solveMaze(String name); //Realized in Command Manager
 	

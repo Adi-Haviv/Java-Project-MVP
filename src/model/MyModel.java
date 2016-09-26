@@ -15,8 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import algorithms.io.MyCompressorOutputStream;
-import algorithms.io.MyDecompressorInputStream;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
@@ -25,6 +23,7 @@ import algorithms.search.DFS;
 import algorithms.search.SearchableMazeAdapter;
 import algorithms.search.Searcher;
 import algorithms.search.Solution;
+import dbConnection.SaveObject;
 
 
 public class MyModel extends Observable implements Model {
@@ -33,7 +32,7 @@ public class MyModel extends Observable implements Model {
 	private Map<String, Solution<Position>> solutions = new ConcurrentHashMap<String, Solution<Position>>();
 	private ExecutorService executor;
 	private Properties properties;
-
+	private SaveObject so = new SaveObject();
 	
 	public MyModel(){
 		properties = PropertiesLoader.getInstance().getProperties();
@@ -124,55 +123,57 @@ public class MyModel extends Observable implements Model {
 			notifyObservers("warning " + msg);		}
 		return null;
 	}
-	/**
-	 * Saves a maze from memory to a file.
-	 */
-
-	@Override
-	public void saveMazeToFile(String name, String filename) {
-		MyCompressorOutputStream out;
-		try {
-			out = new MyCompressorOutputStream(new FileOutputStream(filename));
-			try {
-				out.write(mazes.get(name).toByteArray());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		setChanged();
-		notifyObservers("maze_saved " + name);
-	}
+//	/**
+//	 * Saves a maze from memory to a file.
+//	 */
+//
+//	@Override
+//	public void saveMazeToFile(String name, String filename) {
+//		MyCompressorOutputStream out;
+//		try {
+//			out = new MyCompressorOutputStream(new FileOutputStream(filename));
+//			try {
+//				out.write(mazes.get(name).toByteArray());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		setChanged();
+//		notifyObservers("maze_saved " + name);
+//	}
+//	
+//	/**
+//	 * Loads a maze from a file to memory.
+//	 */
+//
+//	@Override
+//	public void loadMazeFromFile(String filename, String name) {
+//		try {
+//			MyDecompressorInputStream in = new MyDecompressorInputStream(new FileInputStream(filename));
+//			List<Byte> mazeArr = new ArrayList<Byte>();
+//			byte[] mazeByte;
+//			
+//			in.read(mazeArr);
+//			
+//			mazeByte = new byte[mazeArr.size()];
+//			for(int i = 0; i < mazeArr.size(); i++){
+//				mazeByte[i] = mazeArr.get(i).byteValue();
+//			}
+//			mazes.put(name, new Maze3d(mazeByte));
+//			in.close();
+//		} catch (FileNotFoundException e) {
+//			String msg = "File not found";
+//			notifyObservers("warning " + msg);
+//			} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		setChanged();
+//		notifyObservers("maze_loaded " + name);
+//	}
 	
-	/**
-	 * Loads a maze from a file to memory.
-	 */
-
-	@Override
-	public void loadMazeFromFile(String filename, String name) {
-		try {
-			MyDecompressorInputStream in = new MyDecompressorInputStream(new FileInputStream(filename));
-			List<Byte> mazeArr = new ArrayList<Byte>();
-			byte[] mazeByte;
-			
-			in.read(mazeArr);
-			
-			mazeByte = new byte[mazeArr.size()];
-			for(int i = 0; i < mazeArr.size(); i++){
-				mazeByte[i] = mazeArr.get(i).byteValue();
-			}
-			mazes.put(name, new Maze3d(mazeByte));
-			in.close();
-		} catch (FileNotFoundException e) {
-			String msg = "File not found";
-			notifyObservers("warning " + msg);
-			} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setChanged();
-		notifyObservers("maze_loaded " + name);
-	}
+	
 
 	
 	/**
@@ -241,6 +242,34 @@ public class MyModel extends Observable implements Model {
 	@Override
 	public void exit() {
 		executor.shutdown();
+	}
+
+	@Override
+	public void saveMazeToDB(String name) {
+		so.setJavaObject(mazes.get(name));
+		try {
+			so.saveObject("mazes", name);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		setChanged();
+		notifyObservers("maze_saved " + name);
+	}
+
+	@Override
+	public void loadMazeFromDB(String name) {
+		Maze3d maze;
+		try {
+			maze = (Maze3d) so.getObject("mazes", name);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			maze = new Maze3d();
+		}
+		mazes.put(name, maze);
+		setChanged();
+		notifyObservers("maze_loaded " + name);
 	}
 		
 }
