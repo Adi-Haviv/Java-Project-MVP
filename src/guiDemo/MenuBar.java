@@ -85,6 +85,12 @@ public class MenuBar extends Observable{
 	    	notifyObservers("solve");
 	     });
 	    
+	    MenuItem propertiesItem = new MenuItem(menuBar, SWT.PUSH);
+	    propertiesItem.setText("&Properties");
+	    propertiesItem.addListener(SWT.SELECTED, event->{
+	    	openProperties();
+	    });
+	    
 	    MenuItem exitItem = new MenuItem(menuBar, SWT.PUSH);
 	    exitItem.setText("&Exit");
 	    exitItem.addListener(SWT.Selection, event-> {
@@ -212,4 +218,6 @@ public class MenuBar extends Observable{
 	protected void displaymaze(){
 		
 	}
+
+	protected void openProperties(){};
 }
