@@ -43,6 +43,7 @@ public class CommandManager {
 		commands.put("maze_loaded", new MazeLoadedCommand());
 		commands.put("maze_ready", new MazeReadyCommand());
 		commands.put("maze_solved", new MazeSolvedCommand());
+		commands.put("warning", new WarningCommand());
 		commands.put("exit", new ExitCommand());
 		
 		return commands;
@@ -210,6 +211,13 @@ public class CommandManager {
 		}
 	}
 	
+	public class WarningCommand implements Command{
+		@Override
+		public void doCommand(String[] args){
+			String msg = args[0];
+			view.warningMessage(msg);
+		}
+	}
 /**
  * This Class defines the objects that will be used for `Exit` method in class model
  * This Class`s functionality is implement in the doCommand method 

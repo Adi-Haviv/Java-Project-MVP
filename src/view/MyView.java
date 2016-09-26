@@ -75,6 +75,13 @@ public class MyView extends Observable implements View, Observer {
 		}
 	}
 
+	@Override
+	public void warningMessage(String msg) {
+		MessageBox messageBox = new MessageBox(new Shell(),SWT.ICON_WARNING | SWT.OK );
+		messageBox.setMessage(msg);
+		messageBox.setText("Great, There are warnings thanks to you");
+		messageBox.open();	
+	}
 	
 	
 }

@@ -71,7 +71,8 @@ public class MyModel extends Observable implements Model {
 		return mazes.get(name);
 		}
 		catch (NullPointerException e){
-			System.err.println("Not a valid maze");
+			String msg = "Not a valid maze";
+			notifyObservers("warning " + msg);
 		}
 		return new Maze3d();
 	}
@@ -94,8 +95,8 @@ public class MyModel extends Observable implements Model {
 		return sb.toString();
 		}
 		catch(NullPointerException e){
-			System.err.println("Not a valid directory");
-		}
+			String msg = "Not a valid directory";
+			notifyObservers("warning " + msg);		}
 		return null;
 	}
 
@@ -119,8 +120,8 @@ public class MyModel extends Observable implements Model {
 		}
 		}
 		catch(NullPointerException e){
-			System.err.println("Not a valid maze' Sorry honey");
-		}
+			String msg = "Not a valid maze, Sorry honey";
+			notifyObservers("warning " + msg);		}
 		return null;
 	}
 	/**
@@ -164,8 +165,9 @@ public class MyModel extends Observable implements Model {
 			mazes.put(name, new Maze3d(mazeByte));
 			in.close();
 		} catch (FileNotFoundException e) {
-			System.err.println("File not found");
-		} catch (IOException e) {
+			String msg = "File not found";
+			notifyObservers("warning " + msg);
+			} catch (IOException e) {
 			e.printStackTrace();
 		}
 		setChanged();
@@ -227,8 +229,8 @@ public class MyModel extends Observable implements Model {
 		return solutions.get(name);
 		}
 		catch(NullPointerException e){
-			System.err.println("Not a valid maze");
-		}
+			String msg = "Not a valid maze";
+			notifyObservers("warning " + msg);		}
 		return new Solution<Position>();
 	}
 
