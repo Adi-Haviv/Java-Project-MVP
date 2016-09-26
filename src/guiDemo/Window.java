@@ -1,7 +1,6 @@
 package guiDemo;
 
 import java.util.Observable;
-
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -15,7 +14,7 @@ public abstract class Window extends Observable {
 		public void start() {
 			display = new Display();
 			shell = new Shell(display);
-			
+	        
 			initWidgets();
 			shell.open();		
 			

@@ -8,7 +8,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-
+import org.eclipse.swt.widgets.Control;
 import view.View;
 
 public class MazeWindow extends Window implements View, Observer{
@@ -20,21 +20,26 @@ public class MazeWindow extends Window implements View, Observer{
 	
 		GridLayout grid = new GridLayout(1, false);
 		shell.setLayout(grid);
-
-		MenuBar menu = new MenuBar(shell);		
+		
+		MenuBar menu = new MenuBar(shell);
 		menu.addObserver(this);
 		
-		shell.addMouseWheelListener(new MouseWheelListener() {
+		mazeDisplay = new MazeDisplay(shell, SWT.BORDER );	
+		mazeDisplay.addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseScrolled(MouseEvent g) {
 			if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
-			performZoom(g.count);
+			performZoom(g.count, mazeDisplay);
 				}
 			}
 		});
-		mazeDisplay = new MazeDisplay(shell, SWT.BORDER);	
+		
+		mazeDisplay.setMazeData(new int[10][10]);
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
+		
+		
+		
 		//mazeDisplay.update();
 		//mazeDisplay.redraw();
 	}
@@ -48,16 +53,18 @@ public class MazeWindow extends Window implements View, Observer{
 	////////////////////////////////////////////////////////////////////////////////
 	//Perfom Zoom Method
 	////////////////////////////////////////////////////////////////////////////////
-	public void performZoom(int count) {
+	public void performZoom(int count, Control c) {
 		if(count > 0){
-			int width = shell.getSize().x;
-			int height = shell.getSize().y;
-			shell.setSize((int)(width * 1.05), (int)(height * 1.05));
+			int width = c.getSize().x;
+			int height = c.getSize().y;
+			c.setSize((int)(width * 1.05), (int)(height * 1.05));
+			c.redraw();
 		}
 	else {
-		int width = shell.getSize().x;
-		int height = shell.getSize().y;
-		shell.setSize((int)(width * 0.95), (int)(height * 0.95));
+			int width = c.getSize().x;
+			int height = c.getSize().y;
+			c.setSize((int)(width * 0.95), (int)(height * 0.95));
+			c.redraw();
 		}
 	}
 

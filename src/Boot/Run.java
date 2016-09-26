@@ -1,20 +1,21 @@
 package Boot;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-
 import guiDemo.MazeWindow;
 import model.MyModel;
 import presenter.Presenter;
 import properties.Properties;
+import properties.PropertiesLoader;
 import view.MyView;
 
 
 public class Run {
 	
-	public static void main(String[] args) {
-		Properties properties = new Properties();
+	public static void main(String[] args) throws FileNotFoundException {
+		Properties properties = PropertiesLoader.getInstance().getProperties();
 		Presenter presenter;
 		MyView view;
 		MyModel model = new MyModel();	
@@ -35,6 +36,7 @@ public class Run {
 		model.addObserver(presenter);
 		view.addObserver(presenter);				
 		view.start();
+		
 	}
 
 }

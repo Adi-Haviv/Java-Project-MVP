@@ -1,14 +1,13 @@
 package guiDemo;
 
 import org.eclipse.swt.widgets.Canvas;
-
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Shell;
 
 
 public class MazeDisplay extends Canvas {
@@ -22,8 +21,8 @@ public class MazeDisplay extends Canvas {
 	
 	private Character character;
 
-	public MazeDisplay(Shell parent, int style) {
-		super(parent, style);
+	public MazeDisplay(Composite fc, int style) {
+		super(fc, style);
 		character = new Character();
 		character.setPos(new Position(1, 1, 1));
 		

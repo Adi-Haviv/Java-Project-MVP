@@ -31,13 +31,15 @@ public class CommandManager {
 	 */
 	public HashMap<String, Command> getCommandsMap() {
 		HashMap<String, Command> commands = new HashMap<String, Command>();
-		commands.put("generate_maze", new GenerateMazeCommand());//Button
-		commands.put("display", new DisplayMazeCommand());//button
-		commands.put("dir", new GetDirectoryContentsCommand());//button
+		commands.put("generate_maze", new GenerateMazeCommand());
+		commands.put("display", new DisplayMazeCommand());
+		commands.put("dir", new GetDirectoryContentsCommand());
 		commands.put("display_cross_section", new GetCrossSectionByCommand());
-		commands.put("save_maze", new SaveMazeToFileCommand());//button
-		commands.put("load_maze", new LoadMazeFromFileCommand()); //button
-		commands.put("solve", new SolveMazeCommand()); //button
+//		commands.put("save_maze", new SaveMazeToFileCommand());
+//		commands.put("load_maze", new LoadMazeFromFileCommand()); 
+		commands.put("save_maze", new SaveMazeToDBCommand());
+		commands.put("load_maze", new LoadMazeFromDBCommand()); 
+		commands.put("solve", new SolveMazeCommand()); 
 		commands.put("display_solution", new DisplaySolutionCommand());
 		commands.put("maze_saved", new MazeSavedCommand());
 		commands.put("maze_loaded", new MazeLoadedCommand());
@@ -106,12 +108,11 @@ public class CommandManager {
 	 * This Class defines the objects that will be used for `Save Maze To File` method in class model
 	 * This Class`s functionality is implement in the doCommand method 
 	 */
-	public class SaveMazeToFileCommand implements Command{
+	public class SaveMazeToDBCommand implements Command{
 		@Override
 		public void doCommand(String[] args){
 			String name = args[0];
-			String filename = args[1];
-			model.saveMazeToFile(name, filename);
+			model.saveMazeToDB(name);
 		}
 	}
 
@@ -119,15 +120,40 @@ public class CommandManager {
 	 * This Class defines the objects that will be used for `Load Maze From File` method in class model
 	 * This Class`s functionality is implement in the doCommand method 
 	 */
-	public class LoadMazeFromFileCommand implements Command {
+	public class LoadMazeFromDBCommand implements Command {
 		@Override
 		public void doCommand(String[] args){
-			String filename = args[0];
-			String name = args[1];
-			model.loadMazeFromFile(filename, name);
+			String name = args[0];
+			model.loadMazeFromDB(name);
 		}
 	}
-	
+
+//	/**
+//	 * This Class defines the objects that will be used for `Save Maze To File` method in class model
+//	 * This Class`s functionality is implement in the doCommand method 
+//	 */
+//	public class SaveMazeToFileCommand implements Command{
+//		@Override
+//		public void doCommand(String[] args){
+//			String name = args[0];
+//			String filename = args[1];
+//			model.saveMazeToFile(name, filename);
+//		}
+//	}
+//
+//	/**
+//	 * This Class defines the objects that will be used for `Load Maze From File` method in class model
+//	 * This Class`s functionality is implement in the doCommand method 
+//	 */
+//	public class LoadMazeFromFileCommand implements Command {
+//		@Override
+//		public void doCommand(String[] args){
+//			String filename = args[0];
+//			String name = args[1];
+//			model.loadMazeFromFile(filename, name);
+//		}
+//	}
+
 	/**
 	 * This Class defines the objects that will be used for `Solve Maze` method in class model
 	 * This Class`s functionality is implement in the doCommand method 

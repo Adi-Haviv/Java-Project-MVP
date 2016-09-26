@@ -12,7 +12,7 @@ public class PropertiesLoader {
 		return properties;
 	}
 	
-	private PropertiesLoader() 
+	public PropertiesLoader() 
 	{
 		try {
 			XMLDecoder decoder = new XMLDecoder(new FileInputStream("Properties.xml"));

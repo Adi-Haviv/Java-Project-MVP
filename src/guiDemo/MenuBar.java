@@ -22,7 +22,7 @@ public class MenuBar extends Observable{
        
 	protected void initUI(Shell shell){
 		Menu menuBar = new Menu(shell, SWT.BAR);
-	   
+		
 	  	MenuItem cascadeFileMenu = new MenuItem(menuBar, SWT.CASCADE);
 	    cascadeFileMenu.setText("&File");
 	
