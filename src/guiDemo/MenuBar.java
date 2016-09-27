@@ -1,5 +1,8 @@
 package guiDemo;
 
+import java.beans.XMLDecoder;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Observable;
 
 import org.eclipse.swt.SWT;
@@ -8,11 +11,14 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import properties.Properties;
 
 public class MenuBar extends Observable{
 
@@ -232,9 +238,63 @@ public class MenuBar extends Observable{
 	}
 
 	protected void importProperties(){
+		String[] FILTER_NAMES = {"eXtensible Markup Language Files (*.XML)"};
+		String[] FILTER_EXTS = { "*.XML"};
 		Shell shell = new Shell();
-		shell.setText("t");
-		shell.setSize(300, 200);
-	};
+		shell.setText("File Dialog");
+		 
+		shell.setLayout(new GridLayout(5, true));
+		 
+		new Label(shell, SWT.NONE).setText("Properties File Path: ");
+
+	    final Text fileName = new Text(shell, SWT.BORDER);
+	    GridData data = new GridData(GridData.FILL_HORIZONTAL);
+	    data.horizontalSpan = 4;
+	    
+	    fileName.setLayoutData(data);
+	    
+	    Button open = new Button(shell, SWT.PUSH);
+	    open.setText("open");
+		open.addSelectionListener(new SelectionListener() {
+		
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+	        FileDialog dlg = new FileDialog(shell, SWT.OPEN);
+	        dlg.setFilterNames(FILTER_NAMES);
+	        dlg.setFilterExtensions(FILTER_EXTS);
+	        String fn = dlg.open();
+	        if (fn != null) {
+	          fileName.setText(fn);
+	        }
+	      }
+
+		@Override
+		public void widgetDefaultSelected(SelectionEvent e) {
+			// TODO Auto-generated method stub
+			}
+	    });
+	    
+	    Button importProperties = new Button(shell, SWT.PUSH);
+	    importProperties.setText("Import");
+	    importProperties.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+				try{
+				XMLDecoder decoder = new XMLDecoder(new FileInputStream(fileName.getText()));
+				Properties properties = new Properties();
+				properties = (Properties)decoder.readObject();
+				decoder.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				}
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				}
+		    });
+	}
+	//TODO add loader to properties
 	protected void generateProperties(){};
 }
