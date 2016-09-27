@@ -23,6 +23,17 @@ public class PropertiesLoader {
 		}
 	}
 	
+	public PropertiesLoader(String fileName) 
+	{
+		try {
+			XMLDecoder decoder = new XMLDecoder(new FileInputStream(fileName));
+			properties = (Properties)decoder.readObject();
+			decoder.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static PropertiesLoader getInstance() {
 		if (instance == null) 
 			instance = new PropertiesLoader();

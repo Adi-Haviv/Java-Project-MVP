@@ -38,8 +38,6 @@ public class MazeWindow extends Window implements View, Observer{
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
 		
-		
-		
 		//mazeDisplay.update();
 		//mazeDisplay.redraw();
 	}

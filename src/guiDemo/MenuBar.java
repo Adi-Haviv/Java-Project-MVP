@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import properties.Properties;
+import properties.PropertiesLoader;
 
 public class MenuBar extends Observable{
 
@@ -101,6 +102,7 @@ public class MenuBar extends Observable{
 	    subImportItem.setText("Import Properties from XML");
 	    subImportItem.addListener(SWT.Selection, event->{
 	    	importProperties();
+	    	
 	    });
 	    
 	    MenuItem subGeneratePropItem = new MenuItem(propertiesMenu, SWT.PUSH);
@@ -280,14 +282,7 @@ public class MenuBar extends Observable{
 			
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				try{
-				XMLDecoder decoder = new XMLDecoder(new FileInputStream(fileName.getText()));
-				Properties properties = new Properties();
-				properties = (Properties)decoder.readObject();
-				decoder.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				}
+				PropertiesLoader properties = new PropertiesLoader(fileName.getText());
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
