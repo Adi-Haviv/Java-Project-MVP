@@ -102,10 +102,8 @@ public class MenuBar extends Observable{
 	    
 	    MenuItem subImportItem = new MenuItem(propertiesMenu, SWT.PUSH);
 	    subImportItem.setText("Import Properties from XML");
-	    subImportItem.addListener(SWT.Selection,new Listener() {
-	    	public void handleEvent(Event e){
+	    subImportItem.addListener(SWT.Selection, event->{
 	    	importProperties();
-	    	}
 	    });
 	    
 	    MenuItem subGeneratePropItem = new MenuItem(propertiesMenu, SWT.PUSH);
@@ -116,11 +114,9 @@ public class MenuBar extends Observable{
 	    
 	    MenuItem exitItem = new MenuItem(menuBar, SWT.PUSH);
 	    exitItem.setText("&Exit");
-	    exitItem.addListener(SWT.Selection, new Listener() {
-	    	public void handleEvent(Event e){
+	    exitItem.addListener(SWT.Selection, event->{
         	setChanged();
         	notifyObservers("exit");
-	    	}
 	    });
 	  
 	    shell.setMenuBar(menuBar);
