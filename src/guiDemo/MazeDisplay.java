@@ -2,6 +2,10 @@ package guiDemo;
 
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+
+import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -11,20 +15,19 @@ import org.eclipse.swt.graphics.Color;
 
 
 public class MazeDisplay extends Canvas {
-	
-	private int[][] mazeData; 
-	
-	public void setMazeData(int[][] mazeData) {		
-		this.mazeData = mazeData;
-		this.redraw();
-	}
-	
+	private Maze3d maze;
+	private int[][] crossSection; 
 	private Character character;
+	
+	public void setMazeData(Maze3d maze) {		
+		this.maze = maze;
+		crossSection = maze.getCrossSectionByZ(0);
+	}
 
 	public MazeDisplay(Composite fc, int style) {
 		super(fc, style);
 		character = new Character();
-		character.setPos(new Position(1, 1, 1));
+		character.setPos(new Position(maze.getStartPosition()));
 		
 		this.addKeyListener(new KeyListener() {
 			
@@ -38,7 +41,8 @@ public class MazeDisplay extends Canvas {
 			public void keyPressed(KeyEvent e) {				
 				 
 				switch (e.keyCode) {
-				case SWT.ARROW_RIGHT:					
+				case SWT.ARROW_RIGHT:
+//					maze.goRight(character.getPos().);
 					character.moveRight();
 					redraw();
 					break;
@@ -83,14 +87,14 @@ public class MazeDisplay extends Canvas {
 				   int width=getSize().x;
 				   int height=getSize().y;
 
-				   int w=width/mazeData[0].length;
-				   int h=height/mazeData.length;
+				   int w=width/crossSection[0].length;
+				   int h=height/crossSection.length;
 
-				   for(int i=0;i<mazeData.length;i++)
-				      for(int j=0;j<mazeData[i].length;j++){
+				   for(int i=0;i<crossSection.length;i++)
+				      for(int j=0;j<crossSection[i].length;j++){
 				          int x=j*w;
 				          int y=i*h;
-				          if(mazeData[i][j]!=0)
+				          if(crossSection[i][j]!=0)
 				              e.gc.fillRectangle(x,y,w,h);
 				          else{
 				        	  e.gc.setBackground(new Color(null,255,255,255));//paint the background in white

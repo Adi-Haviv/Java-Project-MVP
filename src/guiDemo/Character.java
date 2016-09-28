@@ -3,6 +3,8 @@ package guiDemo;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
+import algorithms.mazeGenerators.Position;
+
 public class Character {
 	private Position pos;
 	private Image img;
@@ -24,29 +26,29 @@ public class Character {
 	}
 	public void draw(int cellWidth, int cellHeight, GC gc) {
 		gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, 
-				cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
+				cellWidth * pos.getCoords()[0], cellHeight * pos.getCoords()[1], cellWidth, cellHeight);
 	}
 	
 	public void moveRight() {
-		pos.x++;
+		pos.getCoords()[0]++;
 	}
 	
 	public void moveLeft() {
-		pos.x--;
+		pos.getCoords()[0]--;
 	}
 	
 	public void moveFwd() {
-		pos.z++;
+		pos.getCoords()[2]++;
 	}
 	public void moveBwd() {
-		pos.z--;
+		pos.getCoords()[2]--;
 	}
 		
 	public void moveUp() {
-		pos.y++;
+		pos.getCoords()[1]++;
 	}
 	public void moveDown() {
-		pos.y--;
+		pos.getCoords()[1]--;
 	}
 	
 }

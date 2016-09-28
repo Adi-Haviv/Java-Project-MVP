@@ -8,6 +8,10 @@ import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
+
+import com.sun.glass.ui.CommonDialogs.Type;
+
+import algorithms.mazeGenerators.GrowingTreeGenerator;
 import view.View;
 
 public class MazeWindow extends Window implements View, Observer{
@@ -16,7 +20,7 @@ public class MazeWindow extends Window implements View, Observer{
 	
 	@Override
 	protected void initWidgets() {
-	
+		GrowingTreeGenerator mg = new GrowingTreeGenerator();
 		GridLayout grid = new GridLayout(1, false);
 		shell.setLayout(grid);
 		
@@ -33,7 +37,7 @@ public class MazeWindow extends Window implements View, Observer{
 			}
 		});
 		
-		mazeDisplay.setMazeData(new int[10][10]);
+		mazeDisplay.setMazeData(mg.generate(10, 10, 10));
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
 		
@@ -69,8 +73,10 @@ public class MazeWindow extends Window implements View, Observer{
 	public void update(Observable o, Object arg) {
 		setChanged();
 		notifyObservers(arg);
-		if(arg.equals("exit")){
-			shell.dispose();
+		if(arg instanceof String){
+			if(arg.equals("exit")){
+				shell.dispose();
+			}
 		}
 		
 	}

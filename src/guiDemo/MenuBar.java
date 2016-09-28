@@ -300,6 +300,7 @@ public class MenuBar extends Observable{
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				PropertiesLoader properties = new PropertiesLoader(fileName.getText());
+				notifyObservers(properties);
 				shell.dispose();
 			}
 		
