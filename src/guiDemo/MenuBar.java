@@ -11,8 +11,10 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -87,7 +89,7 @@ public class MenuBar extends Observable{
 	    
 	    MenuItem subSolveItem = new MenuItem(gameMenu, SWT.PUSH);
 	    subSolveItem.setText("Please Master, Solve Me The Maze");
-	    subSolveItem.addListener(SWT.Selection, event-> {
+	    subSolveItem.addListener(SWT.Selection, event -> {
 	    	setChanged();
 	    	notifyObservers("solve");
 	     });
@@ -100,9 +102,10 @@ public class MenuBar extends Observable{
 	    
 	    MenuItem subImportItem = new MenuItem(propertiesMenu, SWT.PUSH);
 	    subImportItem.setText("Import Properties from XML");
-	    subImportItem.addListener(SWT.Selection, event->{
+	    subImportItem.addListener(SWT.Selection,new Listener() {
+	    	public void handleEvent(Event e){
 	    	importProperties();
-	    	
+	    	}
 	    });
 	    
 	    MenuItem subGeneratePropItem = new MenuItem(propertiesMenu, SWT.PUSH);
