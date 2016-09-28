@@ -17,12 +17,12 @@ import view.MyView;
 public class Run {
 	
 	public static void main(String[] args) throws FileNotFoundException {
+		File swtJar = new File(PlatformIndependency.getArchFilename("lib/swt"));
+		PlatformIndependency.addJarToClasspath(swtJar);
 		Properties properties = PropertiesLoader.getInstance().getProperties();
 		Presenter presenter;
 		MyView view;
 		MyModel model = new MyModel();	
-		File swtJar = new File(PlatformIndependency.getArchFilename("lib/swt"));
-		PlatformIndependency.addJarToClasspath(swtJar);
 		
 		if(properties.getUserInterface().equalsIgnoreCase("CLI")){
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
