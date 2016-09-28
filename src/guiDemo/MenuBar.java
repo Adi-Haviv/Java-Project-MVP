@@ -116,9 +116,11 @@ public class MenuBar extends Observable{
 	    
 	    MenuItem exitItem = new MenuItem(menuBar, SWT.PUSH);
 	    exitItem.setText("&Exit");
-	    exitItem.addListener(SWT.Selection, event-> {
+	    exitItem.addListener(SWT.Selection, new Listener() {
+	    	public void handleEvent(Event e){
         	setChanged();
         	notifyObservers("exit");
+	    	}
 	    });
 	  
 	    shell.setMenuBar(menuBar);
