@@ -2,7 +2,6 @@ package guiDemo;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseWheelListener;
