@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.Observable;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -41,7 +42,7 @@ public class MenuBar extends Observable{
 	    MenuItem subGenerateItem = new MenuItem(fileMenu, SWT.PUSH);
 	    subGenerateItem.setText("Generate Maze");
 	    subGenerateItem.addListener(SWT.Selection, event-> {
-	    	showGenerateMazeOptions();
+	    	showGenerateMazeOptions(shell);
 	     });
 	    
 	    MenuItem subSaveItem = new MenuItem(fileMenu, SWT.PUSH);
@@ -112,10 +113,16 @@ public class MenuBar extends Observable{
 	    	generateProperties();
 	    });
 	    
-	    MenuItem exitItem = new MenuItem(menuBar, SWT.PUSH);
+	    MenuItem cascadeExitMenu = new MenuItem(menuBar, SWT.CASCADE);
+	    cascadeExitMenu.setText("&Exit");
+	    
+	    Menu exitMenu = new Menu(shell, SWT.DROP_DOWN);
+	    cascadeExitMenu.setMenu(exitMenu);
+	    
+	    MenuItem exitItem = new MenuItem(exitMenu, SWT.PUSH);
 	    exitItem.setText("&Exit");
-	    exitItem.addListener(SWT.PUSH, event->{
-        	setChanged();
+	    exitItem.addListener(SWT.Selection, event->{
+	    	setChanged();
         	notifyObservers("exit");
         	shell.dispose();
 	    });
@@ -123,8 +130,9 @@ public class MenuBar extends Observable{
 	    shell.setMenuBar(menuBar);
 		        
 	}
-	protected void showGenerateMazeOptions() {
-		Shell shell = new Shell();
+	
+	protected void showGenerateMazeOptions(Shell s) {
+		Shell shell = new Shell(s);
 		shell.setText("Generate Maze");
 		shell.setSize(300, 200);
 		
@@ -168,6 +176,8 @@ public class MenuBar extends Observable{
 			}
 		});
 		
+		shell.open();
+		
 	}
 
 	protected void showDirectoryContent() {
@@ -193,12 +203,15 @@ public class MenuBar extends Observable{
 				notifyObservers("dir " + txtPath.getText());
 				shell.close();
 			}
+			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
 		});	
+		
+		shell.open();
 	}
 	
 	protected void loadMaze() {
@@ -223,19 +236,21 @@ public class MenuBar extends Observable{
 		btnload.setText("Load Maze");
 		btnload.addSelectionListener(new SelectionListener() {
 		
-		@Override
-		public void widgetSelected(SelectionEvent arg0) {
-		setChanged();
-		notifyObservers("load_maze " + txtMazeName.getText() + " " + txtPath.getText());
-		shell.close();
-		}
-		@Override
-		public void widgetDefaultSelected(SelectionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-		}
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				setChanged();
+				notifyObservers("load_maze " + txtMazeName.getText() + " " + txtPath.getText());
+				shell.close();
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+			}
 		});
-		}
+		
+		shell.open();
+	}
 
 	protected void displaymaze(){
 		
@@ -263,18 +278,18 @@ public class MenuBar extends Observable{
 		
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-	        FileDialog dlg = new FileDialog(shell, SWT.OPEN);
-	        dlg.setFilterNames(FILTER_NAMES);
-	        dlg.setFilterExtensions(FILTER_EXTS);
-	        String fn = dlg.open();
-	        if (fn != null) {
-	          fileName.setText(fn);
-	        }
-	      }
+		        FileDialog dlg = new FileDialog(shell, SWT.OPEN);
+		        dlg.setFilterNames(FILTER_NAMES);
+		        dlg.setFilterExtensions(FILTER_EXTS);
+		        String fn = dlg.open();
+		        if (fn != null) {
+		          fileName.setText(fn);
+		        }
+			}
 
-		@Override
-		public void widgetDefaultSelected(SelectionEvent e) {
-			// TODO Auto-generated method stub
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
 			}
 	    });
 	    
@@ -285,13 +300,18 @@ public class MenuBar extends Observable{
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				PropertiesLoader properties = new PropertiesLoader(fileName.getText());
+				shell.dispose();
 			}
+		
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-				}
-		    });
+			}
+	    });
+	    
+		shell.open();
 	}
+	
 	//TODO add loader to properties
 	protected void generateProperties(){};
 }

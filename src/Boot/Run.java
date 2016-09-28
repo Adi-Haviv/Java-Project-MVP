@@ -32,6 +32,8 @@ public class Run {
 		}
 		else{
 			view = new MyView();
+			view.setProperties(properties);
+			
 			presenter = new Presenter(model, view);
 			MazeWindow win = new MazeWindow();	
 			win.addObserver(presenter);

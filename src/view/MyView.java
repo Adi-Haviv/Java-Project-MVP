@@ -88,7 +88,7 @@ public class MyView extends Observable implements View, Observer {
 			setChanged();
 			notifyObservers(arg);
 	}
-
+	
 	@Override
 	public void warningMessage(String msg) {
 		MessageBox messageBox = new MessageBox(new Shell(),SWT.ICON_WARNING | SWT.OK );
@@ -97,5 +97,7 @@ public class MyView extends Observable implements View, Observer {
 		messageBox.open();	
 	}
 	
-	
+	public void setProperties(Properties p){
+		this.properties = p;
+	}
 }
