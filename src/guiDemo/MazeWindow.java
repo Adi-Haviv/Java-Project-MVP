@@ -69,6 +69,9 @@ public class MazeWindow extends Window implements View, Observer{
 	public void update(Observable o, Object arg) {
 		setChanged();
 		notifyObservers(arg);
+		if(arg.equals("exit")){
+			shell.dispose();
+		}
 		
 	}
 
