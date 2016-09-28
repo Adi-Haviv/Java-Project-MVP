@@ -117,6 +117,7 @@ public class MenuBar extends Observable{
 	    exitItem.addListener(SWT.Selection, event->{
         	setChanged();
         	notifyObservers("exit");
+        	shell.dispose();
 	    });
 	  
 	    shell.setMenuBar(menuBar);
