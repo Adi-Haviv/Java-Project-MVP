@@ -24,8 +24,9 @@ public class MazeDisplay extends Canvas {
 		crossSection = maze.getCrossSectionByZ(0);
 	}
 
-	public MazeDisplay(Composite fc, int style) {
+	public MazeDisplay(Composite fc, int style,Maze3d firstMaze) {
 		super(fc, style);
+		this.maze = firstMaze;
 		character = new Character();
 		character.setPos(new Position(maze.getStartPosition()));
 		
@@ -43,7 +44,12 @@ public class MazeDisplay extends Canvas {
 				switch (e.keyCode) {
 				case SWT.ARROW_RIGHT:
 //					maze.goRight(character.getPos().);
-					character.moveRight();
+					if(character.getPos().getCoords()[0] > maze.getCrossSectionByX(0).length){
+						character.setPos(new Position(0, character.getPos().getCoords()[1], character.getPos().getCoords()[2]));
+					}
+					else{
+						character.moveRight();
+					}
 					redraw();
 					break;
 				

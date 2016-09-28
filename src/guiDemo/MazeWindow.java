@@ -9,8 +9,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 
-import com.sun.glass.ui.CommonDialogs.Type;
-
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import view.View;
 
@@ -27,7 +25,7 @@ public class MazeWindow extends Window implements View, Observer{
 		MenuBar menu = new MenuBar(shell);
 		menu.addObserver(this);
 		
-		mazeDisplay = new MazeDisplay(shell, SWT.BORDER );	
+		mazeDisplay = new MazeDisplay(shell, SWT.BORDER, mg.generate(10, 10, 10) );	
 		mazeDisplay.addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseScrolled(MouseEvent g) {
