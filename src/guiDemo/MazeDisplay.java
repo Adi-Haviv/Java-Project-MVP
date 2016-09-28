@@ -68,12 +68,6 @@ public class MazeDisplay extends Canvas {
 					redraw();
 					break;
 					
-				//user press s case
-				//The same shit from above
-				case (115):
-					character.moveBwd();
-					redraw();
-					break;
 				}
 			}
 		});
