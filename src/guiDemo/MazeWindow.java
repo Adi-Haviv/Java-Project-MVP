@@ -13,6 +13,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -98,6 +100,11 @@ public class MazeWindow extends Window implements Observer{
 			}
 		}
 		
+	}
+
+
+	public void displaySolution(Solution<Position> sol) {
+		mazeDisplay.solve(sol);
 	}
 }
 

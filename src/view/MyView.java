@@ -9,6 +9,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
 import guiDemo.MazeWindow;
 import properties.Properties;
 import view.Cli;
@@ -101,7 +103,26 @@ public class MyView extends Observable implements View, Observer {
 		messageBox.open();	
 	}
 	
+	@Override
+	public void mazeSolved(String name){
+		if(properties.getUserInterface().equalsIgnoreCase("cli")){
+			displayMessage(name + " maze was solved.");
+		}
+		else{
+			setChanged();
+			notifyObservers("display_solution " + name);
+		}
+	}
 	public void setProperties(Properties p){
 		this.properties = p;
+	}
+
+	@Override
+	public void displaySolution(Solution<Position> sol) {
+		if(properties.getUserInterface().equalsIgnoreCase("cli")){
+			displayMessage(sol.toString());
+		} else {
+			gui.displaySolution(sol);
+		}
 	}
 }

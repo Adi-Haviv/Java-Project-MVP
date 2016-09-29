@@ -5,6 +5,8 @@ import org.eclipse.swt.widgets.Composite;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
+import algorithms.search.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,9 @@ public class MazeDisplay extends Canvas {
 		crossSection = new int[1][1];
 		crossSection[0][0] = 0;
 		
+		this.addListener(MyEvent, event ->{
+			
+		});
 		this.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -163,6 +168,21 @@ public class MazeDisplay extends Canvas {
 				   character.draw(w, h, e.gc);				   
 			}
 		});
+	}
+
+	public void solve(Solution<Position> sol) {
+		for(State<Position> s: sol.getStates()){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			character.setPos((Position) s.getValue());
+			refreshCrossSection();
+			refreshCharacter();
+			redraw();
+		}
 	}
 	
 	
