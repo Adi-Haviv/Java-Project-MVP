@@ -15,6 +15,7 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 
 
 public class MazeDisplay extends Canvas {
@@ -151,7 +152,15 @@ public class MazeDisplay extends Canvas {
 				        	  e.gc.setBackground(new Color(null,152,117,186)); //set the walls in purple :P
 				          }
 				      }
-				   character.draw(w, h, e.gc);
+				   if(maze != null)
+					   if(character.getPos().equals(maze.getGoalPosition())){
+						   character.setImage("Images/Finish.png");
+					   } else if(character.getPos().getCoords()[2] == maze.getGoalPosition().getCoords()[2]){
+						   Image img = new Image(null, "Images/Brain.png");
+						   e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, w * maze.getGoalPosition().getCoords()[0], h * maze.getGoalPosition().getCoords()[1], w, h);
+					   }
+
+				   character.draw(w, h, e.gc);				   
 			}
 		});
 	}

@@ -1,7 +1,6 @@
 package Boot;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -9,15 +8,12 @@ import model.MyModel;
 import presenter.Presenter;
 import properties.Properties;
 import properties.PropertiesLoader;
-import utilities.PlatformIndependency;
 import view.MyView;
 
 
 public class Run {
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		File swtJar = new File(PlatformIndependency.getArchFilename("lib/swt"));
-		PlatformIndependency.addJarToClasspath(swtJar);
 		Properties properties = PropertiesLoader.getInstance().getProperties();
 		Presenter presenter;
 		MyView view;
