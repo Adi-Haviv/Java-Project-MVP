@@ -13,6 +13,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 
 import algorithms.mazeGenerators.Maze3d;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class MazeWindow extends Window implements Observer{
 	
@@ -54,6 +56,14 @@ public class MazeWindow extends Window implements Observer{
 		
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
+	}
+	
+
+	public void playingTheme (){
+		String bip = "Images/Pinky and the Brain.mp3";
+		Media hit = new Media(bip);
+		MediaPlayer mediaPlayer = new MediaPlayer(hit);
+		mediaPlayer.play();
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////
