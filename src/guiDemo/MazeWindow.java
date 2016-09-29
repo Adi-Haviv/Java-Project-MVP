@@ -30,11 +30,6 @@ public class MazeWindow extends Window implements Observer{
 		MenuBar menu = new MenuBar(shell);
 		menu.addObserver(this);
 		menu.showGenerateMazeOptions(shell);
-
-		String bip = "Images/Pinky and the Brain.mp3";
-		Media hit = new Media(bip);
-		MediaPlayer mediaPlayer = new MediaPlayer(hit);
-		mediaPlayer.play();
 		
 		mazeDisplay = new MazeDisplay(shell, SWT.BORDER);	
 		
