@@ -82,7 +82,9 @@ public class MyView extends Observable implements View, Observer {
 	
 	@Override
 	public void displayMaze(Maze3d maze){
-		gui.setMaze(maze);
+		if(properties.getUserInterface().equalsIgnoreCase("gui")){
+			gui.setMaze(maze);
+		}
 	}
 	
 	@Override

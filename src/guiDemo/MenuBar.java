@@ -65,6 +65,10 @@ public class MenuBar extends Observable{
 
 	    MenuItem subSolutionItem = new MenuItem(gameMenu, SWT.PUSH);
 	    subSolutionItem.setText("Display Solution");
+	    subSolutionItem.addListener(SWT.Selection, event->{
+	    	setChanged();
+	    	notifyObservers("solve " + currentMaze);
+	    });
 	    
 	    MenuItem subHintItem = new MenuItem(gameMenu, SWT.PUSH);
 	    subHintItem.setText("Hit Me With a Hint");

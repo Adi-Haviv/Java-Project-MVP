@@ -29,7 +29,7 @@ public class SaveObject {
     public  void saveObject(String table, String name) throws Exception
     {
         try{
-	    Connection conn= DriverManager.getConnection("jdbc:mysql://52.37.202.40:3306/javadb", "javauser", "Ab123456!");
+	    Connection conn= DriverManager.getConnection("jdbc:mysql://52.36.241.167:3306/javadb", "javauser", "Ab123456!");
         PreparedStatement ps=null;
         String sql=null;
 
@@ -74,7 +74,7 @@ public class SaveObject {
     public Object getObject(String table, String name) throws Exception
     {
         Object rmObj=null;
-        Connection conn= DriverManager.getConnection("jdbc:mysql://52.37.202.40:3306/javadb", "javauser", "Ab123456!");
+        Connection conn= DriverManager.getConnection("jdbc:mysql://52.36.241.167:3306/javadb", "javauser", "Ab123456!");
         PreparedStatement ps=null;
         ResultSet rs=null;
         String sql=null;
