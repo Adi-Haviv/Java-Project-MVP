@@ -2,15 +2,14 @@ package guiDemo;
 
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import algorithms.search.State;
-
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -24,10 +23,13 @@ public class MazeDisplay extends Canvas {
 	private Maze3d maze;
 	private int[][] crossSection; 
 	private Character character;
+	boolean keyListenerActive = false;
+	KeyListener l;
 	
 	public void setMazeData(Maze3d maze) {	
 		this.maze = maze;
 		character.setPos(new Position(maze.getStartPosition()));
+		checkGoal();
 		refreshCrossSection();
 		refreshCharacter();
 		redraw();
@@ -59,14 +61,10 @@ public class MazeDisplay extends Canvas {
 		crossSection = new int[1][1];
 		crossSection[0][0] = 0;
 		
-//		this.addListener(MyEvent, event ->{
-//			
-//		});
-		this.addKeyListener(new KeyListener() {
+		l = new KeyListener() {
 			
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				// TODO Auto-generated method stub
 				
 			}
 			
@@ -77,6 +75,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.ARROW_RIGHT:
 					if(maze.goRight(movePos.getCoords())[0] != -1){
 						character.moveRight();
+						checkGoal();
 						refreshCharacter();
 						redraw();
 					}
@@ -85,6 +84,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.ARROW_LEFT:
 					if(maze.goLeft(movePos.getCoords())[0] != -1){
 						character.moveLeft();
+						checkGoal();
 						refreshCharacter();
 						redraw();	
 					}
@@ -93,6 +93,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.ARROW_DOWN:
 					if(maze.goFwd(movePos.getCoords())[0] != -1){
 						character.moveFwd();
+						checkGoal();
 						refreshCharacter();
 						redraw();
 					}
@@ -101,6 +102,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.ARROW_UP:
 					if(maze.goBack(movePos.getCoords())[0] != -1){
 						character.moveBwd();
+						checkGoal();
 						refreshCharacter();
 						redraw();
 					}
@@ -109,6 +111,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.PAGE_UP:
 					if(maze.goUp(movePos.getCoords())[0] != -1){
 						character.moveUp();
+						checkGoal();
 						refreshCrossSection();
 						refreshCharacter();
 						redraw();
@@ -118,6 +121,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.PAGE_DOWN:
 					if(maze.goDown(movePos.getCoords())[0] != -1){
 						character.moveDown();
+						checkGoal();
 						refreshCrossSection();
 						refreshCharacter();
 						redraw();
@@ -125,11 +129,17 @@ public class MazeDisplay extends Canvas {
 					break;
 					
 				default:
+					checkGoal();
+					refreshCrossSection();
+			        refreshCharacter();
 					redraw();
 					break;
 				}
 			}
-		});
+		};
+		
+		this.addKeyListener(l);
+		keyListenerActive = true;
 		
 		this.addPaintListener(new PaintListener() {
 			
@@ -157,13 +167,13 @@ public class MazeDisplay extends Canvas {
 				        	  e.gc.setBackground(new Color(null,152,117,186)); //set the walls in purple :P
 				          }
 				      }
-				   if(maze != null)
+				   if(maze != null) 
 					   if(character.getPos().equals(maze.getGoalPosition())){
 						   character.setImage("Images/Finish.png");
 					   } else if(character.getPos().getCoords()[2] == maze.getGoalPosition().getCoords()[2]){
 						   Image img = new Image(null, "Images/Brain.png");
 						   e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, w * maze.getGoalPosition().getCoords()[0], h * maze.getGoalPosition().getCoords()[1], w, h);
-					   }
+					   }  
 
 				   character.draw(w, h, e.gc);				   
 			}
@@ -171,19 +181,37 @@ public class MazeDisplay extends Canvas {
 	}
 
 	public void solve(Solution<Position> sol) {
+		int delay = 1000;
 		for(State<Position> s: sol.getStates()){
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			character.setPos((Position) s.getValue());
-			refreshCrossSection();
-			refreshCharacter();
-			redraw();
+			this.getDisplay().timerExec(delay, new Runnable(){
+				@Override
+				public void run() {		
+					character.setPos((Position) s.getValue());
+					refreshCrossSection();
+					refreshCharacter();
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(java.awt.event.KeyEvent.VK_SPACE);
+						robot.keyRelease(java.awt.event.KeyEvent.VK_SPACE);
+					} catch (AWTException e) {
+						e.printStackTrace();
+					}
+				}
+				
+			});
+			delay+=1000;
 		}
+		
+	
 	}
 	
-	
+	private void checkGoal(){
+		if (keyListenerActive == true && character.getPos().equals(maze.getGoalPosition())){
+			this.removeKeyListener(l);
+			keyListenerActive = false;
+		} else if (keyListenerActive == false && !character.getPos().equals(maze.getGoalPosition())){
+			this.addKeyListener(l);
+			keyListenerActive = true;
+		}
+	}
 }
