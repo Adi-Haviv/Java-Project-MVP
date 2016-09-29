@@ -25,7 +25,7 @@ public class MazeWindow extends Window implements View, Observer{
 		MenuBar menu = new MenuBar(shell);
 		menu.addObserver(this);
 		
-		mazeDisplay = new MazeDisplay(shell, SWT.BORDER, mg.generate(10, 10, 10) );	
+		mazeDisplay = new MazeDisplay(shell, SWT.BORDER, mg.generate(5, 5, 5) );	
 		mazeDisplay.addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseScrolled(MouseEvent g) {
@@ -35,7 +35,7 @@ public class MazeWindow extends Window implements View, Observer{
 			}
 		});
 		
-		mazeDisplay.setMazeData(mg.generate(10, 10, 10));
+//		mazeDisplay.setMazeData(mg.generate(10, 10, 10));
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
 		

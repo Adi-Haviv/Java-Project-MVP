@@ -6,6 +6,8 @@ import org.eclipse.swt.widgets.Composite;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 
+import java.util.Arrays;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -21,15 +23,23 @@ public class MazeDisplay extends Canvas {
 	
 	public void setMazeData(Maze3d maze) {		
 		this.maze = maze;
-		crossSection = maze.getCrossSectionByZ(0);
+		crossSection = maze.getCrossSectionByZ(character.getPos().getCoords()[2]);
 	}
-
+	
+	private void refreshCrossSection(){
+		crossSection = maze.getCrossSectionByZ(character.getPos().getCoords()[2]);
+	}
+	
 	public MazeDisplay(Composite fc, int style,Maze3d firstMaze) {
 		super(fc, style);
 		this.maze = firstMaze;
 		character = new Character();
 		character.setPos(new Position(maze.getStartPosition()));
+		this.crossSection = this.maze.getCrossSectionByZ(character.getPos().getCoords()[2]);
 		
+		System.out.println(Arrays.deepToString(maze.getMaze()));
+		System.out.println(Arrays.deepToString(crossSection));
+		System.out.println(Arrays.toString(character.getPos().getCoords()));
 		this.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -40,42 +50,50 @@ public class MazeDisplay extends Canvas {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {				
-				 
+				Position movePos = new Position(character.getPos());
 				switch (e.keyCode) {
 				case SWT.ARROW_RIGHT:
-//					maze.goRight(character.getPos().);
-					if(character.getPos().getCoords()[0] > maze.getCrossSectionByX(0).length){
-						character.setPos(new Position(0, character.getPos().getCoords()[1], character.getPos().getCoords()[2]));
-					}
-					else{
+					if(maze.goRight(movePos.getCoords())[0] != -1){
 						character.moveRight();
+						redraw();
 					}
-					redraw();
 					break;
 				
-				case SWT.ARROW_LEFT:					
-					character.moveLeft();
-					redraw();
+				case SWT.ARROW_LEFT:
+					if(maze.goLeft(movePos.getCoords())[0] != -1){
+						character.moveLeft();
+						redraw();	
+					}
 					break;
 				
 				case SWT.ARROW_UP:
-					character.moveUp();
-					redraw();
+					if(maze.goFwd(movePos.getCoords())[0] != -1){
+						character.moveFwd();
+						redraw();
+					}
 					break;
 				
 				case SWT.ARROW_DOWN:
-					character.moveDown();
-					redraw();
+					if(maze.goBack(movePos.getCoords())[0] != -1){
+						character.moveBwd();
+						redraw();
+					}
 					break;
 				
 				case SWT.PAGE_UP:
-					character.moveFwd();
-					redraw();
+					if(maze.goUp(movePos.getCoords())[0] != -1){
+						character.moveUp();
+						refreshCrossSection();
+						redraw();
+					}
 					break;
 				
 				case SWT.PAGE_DOWN:
-					character.moveBwd();
-					redraw();
+					if(maze.goDown(movePos.getCoords())[0] != -1){
+						character.moveDown();
+						refreshCrossSection();
+						redraw();
+					}
 					break;
 					
 				}
@@ -100,7 +118,7 @@ public class MazeDisplay extends Canvas {
 				      for(int j=0;j<crossSection[i].length;j++){
 				          int x=j*w;
 				          int y=i*h;
-				          if(crossSection[i][j]!=0)
+				          if(crossSection[j][i]!=0)
 				              e.gc.fillRectangle(x,y,w,h);
 				          else{
 				        	  e.gc.setBackground(new Color(null,255,255,255));//paint the background in white

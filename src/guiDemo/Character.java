@@ -30,25 +30,31 @@ public class Character {
 	}
 	
 	public void moveRight() {
-		pos.getCoords()[0]++;
+		int[] coords = pos.getCoords();
+		pos.setCoords(coords[0] + 1, coords[1], coords[2]);
 	}
 	
 	public void moveLeft() {
-		pos.getCoords()[0]--;
+		int[] coords = pos.getCoords();
+		pos.setCoords(coords[0] - 1, coords[1], coords[2]);
 	}
 	
-	public void moveFwd() {
-		pos.getCoords()[2]++;
-	}
-	public void moveBwd() {
-		pos.getCoords()[2]--;
-	}
-		
 	public void moveUp() {
-		pos.getCoords()[1]++;
+		int[] coords = pos.getCoords();
+		pos.setCoords(coords[0], coords[1], coords[2] + 2);
 	}
 	public void moveDown() {
-		pos.getCoords()[1]--;
+		int[] coords = pos.getCoords();
+		pos.setCoords(coords[0], coords[1], coords[2] - 2);
+	}
+		
+	public void moveFwd() {
+		int[] coords = pos.getCoords();
+		pos.setCoords(coords[0], coords[1] + 1, coords[2]);
+	}
+	public void moveBwd() {
+		int[] coords = pos.getCoords();
+		pos.setCoords(coords[0], coords[1] - 1, coords[2]);
 	}
 	
 }
