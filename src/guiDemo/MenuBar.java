@@ -41,10 +41,11 @@ public class MenuBar extends Observable{
 	    subSaveItem.addListener(SWT.Selection, event-> {
 	    	setChanged();
 	    	notifyObservers("save_maze");
+	    	
 	     });
 	    
 	    MenuItem subLoadItem = new MenuItem(fileMenu, SWT.PUSH);
-	    subLoadItem.setText("Load Maze From File");
+	    subLoadItem.setText("Load Maze From DB");
 	    subLoadItem.addListener(SWT.Selection, event-> {
 	    	loadMaze();
 	     });
