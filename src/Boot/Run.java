@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import guiDemo.MazeWindow;
 import model.MyModel;
 import presenter.Presenter;
 import properties.Properties;
@@ -32,12 +31,8 @@ public class Run {
 		}
 		else{
 			view = new MyView();
-			view.setProperties(properties);
-			
 			presenter = new Presenter(model, view);
-			MazeWindow win = new MazeWindow();	
-			win.addObserver(presenter);
-			win.start();
+			view.setProperties(properties);
 		}	
 		model.addObserver(presenter);
 		view.addObserver(presenter);				

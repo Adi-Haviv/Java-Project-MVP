@@ -225,7 +225,8 @@ public class CommandManager {
 		@Override
 		public void doCommand(String[] args){
 			String name = args[0];
-			view.displayMessage(name + " maze is ready, Have Fun!");
+			Maze3d maze = model.getMaze(name);
+			view.displayMaze(maze);
 		}
 	}
 	

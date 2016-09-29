@@ -11,10 +11,10 @@ public class Character {
 	
 	public Character() {
 		try {
-			img = new Image(null, "Images/images.png");
+			img = new Image(null, "Images/PinkyClear.png");
 		} catch (IllegalArgumentException e) {
-		e.printStackTrace();
-			}
+			e.printStackTrace();
+		}
 	}
 	
 	public Position getPos() {
@@ -29,6 +29,13 @@ public class Character {
 				cellWidth * pos.getCoords()[0], cellHeight * pos.getCoords()[1], cellWidth, cellHeight);
 	}
 	
+	public void setImage(String s){
+		try{
+			img = new Image(null, s);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+	}
 	public void moveRight() {
 		int[] coords = pos.getCoords();
 		pos.setCoords(coords[0] + 1, coords[1], coords[2]);

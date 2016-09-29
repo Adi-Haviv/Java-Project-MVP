@@ -6,7 +6,8 @@ import org.eclipse.swt.widgets.Composite;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -21,25 +22,40 @@ public class MazeDisplay extends Canvas {
 	private int[][] crossSection; 
 	private Character character;
 	
-	public void setMazeData(Maze3d maze) {		
+	public void setMazeData(Maze3d maze) {	
 		this.maze = maze;
-		crossSection = maze.getCrossSectionByZ(character.getPos().getCoords()[2]);
+		character.setPos(new Position(maze.getStartPosition()));
+		refreshCrossSection();
+		refreshCharacter();
+		redraw();
 	}
 	
 	private void refreshCrossSection(){
 		crossSection = maze.getCrossSectionByZ(character.getPos().getCoords()[2]);
 	}
 	
-	public MazeDisplay(Composite fc, int style,Maze3d firstMaze) {
+	private void refreshCharacter(){
+		List<String> moves = new ArrayList<String>();
+		for (String s : maze.getPossibleMoves(character.getPos())){
+			moves.add(s);
+		}
+		if(moves.contains("Up") && moves.contains("Down")){
+			character.setImage("images/PinkyBoth.png");
+		} else if(moves.contains("Up") && !moves.contains("Down")){
+			character.setImage("images/PinkyUp.png");
+		} else if(!moves.contains("Up") && moves.contains("Down")){
+			character.setImage("images/PinkyDown.png");
+		} else {
+			character.setImage("images/PinkyClear.png");
+		}
+	}
+	public MazeDisplay(Composite fc, int style) {
 		super(fc, style);
-		this.maze = firstMaze;
 		character = new Character();
-		character.setPos(new Position(maze.getStartPosition()));
-		this.crossSection = this.maze.getCrossSectionByZ(character.getPos().getCoords()[2]);
+		character.setPos(new Position());
+		crossSection = new int[1][1];
+		crossSection[0][0] = 0;
 		
-		System.out.println(Arrays.deepToString(maze.getMaze()));
-		System.out.println(Arrays.deepToString(crossSection));
-		System.out.println(Arrays.toString(character.getPos().getCoords()));
 		this.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -55,6 +71,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.ARROW_RIGHT:
 					if(maze.goRight(movePos.getCoords())[0] != -1){
 						character.moveRight();
+						refreshCharacter();
 						redraw();
 					}
 					break;
@@ -62,6 +79,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.ARROW_LEFT:
 					if(maze.goLeft(movePos.getCoords())[0] != -1){
 						character.moveLeft();
+						refreshCharacter();
 						redraw();	
 					}
 					break;
@@ -69,6 +87,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.ARROW_UP:
 					if(maze.goFwd(movePos.getCoords())[0] != -1){
 						character.moveFwd();
+						refreshCharacter();
 						redraw();
 					}
 					break;
@@ -76,6 +95,7 @@ public class MazeDisplay extends Canvas {
 				case SWT.ARROW_DOWN:
 					if(maze.goBack(movePos.getCoords())[0] != -1){
 						character.moveBwd();
+						refreshCharacter();
 						redraw();
 					}
 					break;
@@ -84,6 +104,7 @@ public class MazeDisplay extends Canvas {
 					if(maze.goUp(movePos.getCoords())[0] != -1){
 						character.moveUp();
 						refreshCrossSection();
+						refreshCharacter();
 						redraw();
 					}
 					break;
@@ -92,10 +113,14 @@ public class MazeDisplay extends Canvas {
 					if(maze.goDown(movePos.getCoords())[0] != -1){
 						character.moveDown();
 						refreshCrossSection();
+						refreshCharacter();
 						redraw();
 					}
 					break;
 					
+				default:
+					redraw();
+					break;
 				}
 			}
 		});
@@ -130,4 +155,6 @@ public class MazeDisplay extends Canvas {
 			}
 		});
 	}
+	
+	
 }

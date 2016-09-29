@@ -11,6 +11,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
+import algorithms.mazeGenerators.Maze3d;
 import guiDemo.MazeWindow;
 import properties.Properties;
 import properties.PropertiesLoader;
@@ -41,7 +42,8 @@ public class MyView extends Observable implements View, Observer {
 	//C'TOR for GUI
 	
 	public MyView(){
-		
+		gui = new MazeWindow();
+		gui.addObserver(this);
 	}
 	
 	//C'TOR for CLI
@@ -54,9 +56,7 @@ public class MyView extends Observable implements View, Observer {
 		cli.addObserver(this);
 
 	}
-	
-	
-	
+		
 	/**
 	 * Starts the cli and the programs functionality.
 	 */
@@ -69,6 +69,7 @@ public class MyView extends Observable implements View, Observer {
 		gui.start();
 		}
 	}
+	
 	@Override
 	public void displayMessage(String msg) {
 		if(properties.getUserInterface().equalsIgnoreCase("cli")){
@@ -81,6 +82,11 @@ public class MyView extends Observable implements View, Observer {
 		messageBox.setText("This is a Message Box");
 		messageBox.open();	
 		}
+	}
+	
+	@Override
+	public void displayMaze(Maze3d maze){
+		gui.setMaze(maze);
 	}
 	
 	@Override

@@ -9,23 +9,23 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 
-import algorithms.mazeGenerators.GrowingTreeGenerator;
-import view.View;
+import algorithms.mazeGenerators.Maze3d;
 
-public class MazeWindow extends Window implements View, Observer{
+public class MazeWindow extends Window implements Observer{
 
 	private MazeDisplay mazeDisplay;
 	
 	@Override
 	protected void initWidgets() {
-		GrowingTreeGenerator mg = new GrowingTreeGenerator();
 		GridLayout grid = new GridLayout(1, false);
 		shell.setLayout(grid);
 		
 		MenuBar menu = new MenuBar(shell);
 		menu.addObserver(this);
-		
-		mazeDisplay = new MazeDisplay(shell, SWT.BORDER, mg.generate(5, 5, 5) );	
+		menu.showGenerateMazeOptions(shell);
+
+		mazeDisplay = new MazeDisplay(shell, SWT.BORDER);	
+
 		mazeDisplay.addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseScrolled(MouseEvent g) {
@@ -35,18 +35,8 @@ public class MazeWindow extends Window implements View, Observer{
 			}
 		});
 		
-//		mazeDisplay.setMazeData(mg.generate(10, 10, 10));
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
-		
-		//mazeDisplay.update();
-		//mazeDisplay.redraw();
-	}
-
-	@Override
-	public void displayMessage(String msg) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +56,11 @@ public class MazeWindow extends Window implements View, Observer{
 			c.redraw();
 		}
 	}
-
+	
+	public void setMaze(Maze3d maze){
+		mazeDisplay.setMazeData(maze);
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		setChanged();
@@ -76,12 +70,6 @@ public class MazeWindow extends Window implements View, Observer{
 				shell.dispose();
 			}
 		}
-		
-	}
-
-	@Override
-	public void warningMessage(String msg) {
-		// TODO Auto-generated method stub
 		
 	}
 }
