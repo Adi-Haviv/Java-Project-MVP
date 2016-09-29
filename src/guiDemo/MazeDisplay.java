@@ -59,9 +59,9 @@ public class MazeDisplay extends Canvas {
 		crossSection = new int[1][1];
 		crossSection[0][0] = 0;
 		
-		this.addListener(MyEvent, event ->{
-			
-		});
+//		this.addListener(MyEvent, event ->{
+//			
+//		});
 		this.addKeyListener(new KeyListener() {
 			
 			@Override
