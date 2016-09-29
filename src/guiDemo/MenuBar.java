@@ -16,7 +16,8 @@ import org.eclipse.swt.widgets.Text;
 import properties.PropertiesLoader;
 
 public class MenuBar extends Observable{
-
+	private String currentMaze;
+	
 	public MenuBar(Shell shell){
 		initUI(shell);
 	}
@@ -40,7 +41,7 @@ public class MenuBar extends Observable{
 	    subSaveItem.setText("Save Maze");
 	    subSaveItem.addListener(SWT.Selection, event-> {
 	    	setChanged();
-	    	notifyObservers("save_maze");
+	    	notifyObservers("save_maze " + currentMaze);
 	    	
 	     });
 	    
@@ -138,8 +139,9 @@ public class MenuBar extends Observable{
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				currentMaze = txtName.getText();
 				setChanged();
-				notifyObservers("generate_maze " + txtName.getText() + " " + txtRows.getText() + " " + txtColumns.getText() + " " + txtFloors.getText() + " ");
+				notifyObservers("generate_maze " + currentMaze + " " + txtRows.getText() + " " + txtColumns.getText() + " " + txtFloors.getText() + " ");
 				shell.close();
 			}
 			@Override
@@ -211,8 +213,9 @@ public class MenuBar extends Observable{
 		
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				currentMaze = txtMazeName.getText();
 				setChanged();
-				notifyObservers("load_maze " + txtMazeName.getText() + " " + txtPath.getText());
+				notifyObservers("load_maze " + currentMaze + " " + txtPath.getText());
 				shell.close();
 			}
 			@Override

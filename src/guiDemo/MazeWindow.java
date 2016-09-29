@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Control;
 import algorithms.mazeGenerators.Maze3d;
 
 public class MazeWindow extends Window implements Observer{
-
+	
 	private MazeDisplay mazeDisplay;
 	
 	@Override
