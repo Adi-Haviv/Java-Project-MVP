@@ -39,5 +39,9 @@ public class PropertiesLoader {
 			instance = new PropertiesLoader();
 		return instance;
 	}
-	
+
+	public static PropertiesLoader getNewInstance(String fileName) { 
+			instance = new PropertiesLoader(fileName);
+		return instance;
+	}
 }

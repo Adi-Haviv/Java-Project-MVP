@@ -1,5 +1,8 @@
 package guiDemo;
 
+import java.beans.XMLEncoder;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Observable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -13,6 +16,8 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import properties.Properties;
 import properties.PropertiesLoader;
 
 public class MenuBar extends Observable{
@@ -275,8 +280,17 @@ public class MenuBar extends Observable{
 			
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				PropertiesLoader properties = new PropertiesLoader(fileName.getText());
-				notifyObservers(properties);
+				PropertiesLoader loader= new PropertiesLoader(fileName.getText());	
+				Properties properties = loader.getProperties();
+				try {
+					XMLEncoder xml = new XMLEncoder(new FileOutputStream("Properties.xml"));
+					xml.writeObject(properties);
+					xml.close();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				shell.dispose();
 			}
 		
