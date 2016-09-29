@@ -200,7 +200,7 @@ public class CommandManager {
 		public void doCommand(String[] args){
 			String name = args[0];
 			Solution<Position> sol = model.getMazeSolution(name);
-			view.displayMessage(sol.toString());
+			view.displaySolution(sol);
 			
 		}
 	}
@@ -209,7 +209,7 @@ public class CommandManager {
 		@Override
 		public void doCommand(String[] args){
 			String name = args[0];
-			view.displayMessage(name + " maze was solved");
+			view.mazeSolved(name);
 		}
 	}	
 	
