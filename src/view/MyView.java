@@ -5,16 +5,12 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.Executors;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-
 import algorithms.mazeGenerators.Maze3d;
 import guiDemo.MazeWindow;
 import properties.Properties;
-import properties.PropertiesLoader;
 import view.Cli;
 
 
