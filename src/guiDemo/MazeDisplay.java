@@ -84,7 +84,7 @@ public class MazeDisplay extends Canvas {
 					}
 					break;
 				
-				case SWT.ARROW_UP:
+				case SWT.ARROW_DOWN:
 					if(maze.goFwd(movePos.getCoords())[0] != -1){
 						character.moveFwd();
 						refreshCharacter();
@@ -92,7 +92,7 @@ public class MazeDisplay extends Canvas {
 					}
 					break;
 				
-				case SWT.ARROW_DOWN:
+				case SWT.ARROW_UP:
 					if(maze.goBack(movePos.getCoords())[0] != -1){
 						character.moveBwd();
 						refreshCharacter();
