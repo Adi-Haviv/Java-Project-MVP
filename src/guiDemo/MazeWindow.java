@@ -38,6 +38,8 @@ public class MazeWindow extends Window implements Observer{
 	            messageBox.setText("Don't You Dare To Give Up!");
 	            messageBox.setMessage("Close the shell?");
 	            event.doit = messageBox.open() == SWT.YES;
+	            System.out.println("hi");
+	            setChanged();
 	            notifyObservers("exit");
 	    		shell.dispose();
 	        }
