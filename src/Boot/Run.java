@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-
-import guiDemo.MenuBar;
 import model.MyModel;
 import presenter.Presenter;
 import properties.Properties;
