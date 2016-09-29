@@ -29,6 +29,11 @@ public class MazeWindow extends Window implements Observer{
 		menu.addObserver(this);
 		menu.showGenerateMazeOptions(shell);
 
+		String bip = "Images/Pinky and the Brain.mp3";
+		Media hit = new Media(bip);
+		MediaPlayer mediaPlayer = new MediaPlayer(hit);
+		mediaPlayer.play();
+		
 		mazeDisplay = new MazeDisplay(shell, SWT.BORDER);	
 		
 		shell.addListener(SWT.Close, new Listener()
@@ -58,13 +63,6 @@ public class MazeWindow extends Window implements Observer{
 		mazeDisplay.setFocus();
 	}
 	
-
-	public void playingTheme (){
-		String bip = "Images/Pinky and the Brain.mp3";
-		Media hit = new Media(bip);
-		MediaPlayer mediaPlayer = new MediaPlayer(hit);
-		mediaPlayer.play();
-	}
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//Perfom Zoom Method
