@@ -57,35 +57,16 @@ public class MenuBar extends Observable{
 	     });
 	    
 	    MenuItem cascadeDisplayMenu = new MenuItem(menuBar, SWT.CASCADE);
-	    cascadeDisplayMenu.setText("&Display");
-	
-	    Menu displayMenu = new Menu(shell, SWT.DROP_DOWN);
-	    cascadeDisplayMenu.setMenu(displayMenu);
-	    
-	    MenuItem subMazeItem = new MenuItem(displayMenu, SWT.PUSH);
-	    subMazeItem.setText("Display Maze");
-	    
-	    MenuItem subCrossSectionItem = new MenuItem(displayMenu, SWT.PUSH);
-	    subCrossSectionItem.setText("Display Cross Section By...");
-	    
-	    MenuItem subSolutionItem = new MenuItem(displayMenu, SWT.PUSH);
-	    subSolutionItem.setText("Display Solution");
-	    
-	    MenuItem cascadeGameMenu = new MenuItem(menuBar, SWT.CASCADE);
-	    cascadeGameMenu.setText("&Game");
+	    cascadeDisplayMenu.setText("&Game");
 	
 	    Menu gameMenu = new Menu(shell, SWT.DROP_DOWN);
-	    cascadeGameMenu.setMenu(gameMenu);
+	    cascadeDisplayMenu.setMenu(gameMenu);
+
+	    MenuItem subSolutionItem = new MenuItem(gameMenu, SWT.PUSH);
+	    subSolutionItem.setText("Display Solution");
 	    
 	    MenuItem subHintItem = new MenuItem(gameMenu, SWT.PUSH);
 	    subHintItem.setText("Hit Me With a Hint");
-	    
-	    MenuItem subSolveItem = new MenuItem(gameMenu, SWT.PUSH);
-	    subSolveItem.setText("Please Master, Solve Me The Maze");
-	    subSolveItem.addListener(SWT.Selection, event -> {
-	    	setChanged();
-	    	notifyObservers("solve");
-	     });
 	    
 	    MenuItem cascadePropertiesMenu = new MenuItem(menuBar, SWT.CASCADE);
 	    cascadePropertiesMenu.setText("&Properties");
@@ -243,11 +224,7 @@ public class MenuBar extends Observable{
 		
 		shell.open();
 	}
-
-	protected void displaymaze(){
-		
-	}
-
+	
 	protected void importProperties(){
 		String[] FILTER_NAMES = {"eXtensible Markup Language Files (*.XML)"};
 		String[] FILTER_EXTS = { "*.XML"};
