@@ -1,8 +1,6 @@
 package properties;
 
 import java.beans.XMLDecoder;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class PropertiesLoader {
 	private static PropertiesLoader instance;
@@ -14,24 +12,16 @@ public class PropertiesLoader {
 	
 	public PropertiesLoader() 
 	{
-		try {
-			XMLDecoder decoder = new XMLDecoder(new FileInputStream("Properties.xml"));
-			properties = (Properties)decoder.readObject();
-			decoder.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		XMLDecoder decoder = new XMLDecoder(getClass().getClassLoader().getResourceAsStream(("resources/Properties.xml")));
+		properties = (Properties)decoder.readObject();
+		decoder.close();
 	}
 	
 	public PropertiesLoader(String fileName) 
 	{
-		try {
-			XMLDecoder decoder = new XMLDecoder(new FileInputStream(fileName));
-			properties = (Properties)decoder.readObject();
-			decoder.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		XMLDecoder decoder = new XMLDecoder(getClass().getClassLoader().getResourceAsStream(fileName));
+		properties = (Properties)decoder.readObject();
+		decoder.close();
 	}
 	
 	public static PropertiesLoader getInstance() {

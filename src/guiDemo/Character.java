@@ -11,7 +11,7 @@ public class Character {
 	
 	public Character() {
 		try {
-			img = new Image(null, "Images/Splash.png");
+			img = new Image(null, getClass().getClassLoader().getResourceAsStream("resources/Splash.png"));
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		}
@@ -31,7 +31,7 @@ public class Character {
 	
 	public void setImage(String s){
 		try{
-			img = new Image(null, s);
+			img = new Image(null, getClass().getClassLoader().getResourceAsStream(s));
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		}

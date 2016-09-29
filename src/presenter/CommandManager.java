@@ -179,6 +179,16 @@ public class CommandManager {
 		}
 	}
 	
+	public class hintCommand implements Command{
+
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[0];
+			Solution<Position> sol = model.getMazeSolution(name);
+			view.displayHint(sol);
+		}
+		
+	}
 	public class MazeSolvedCommand implements Command {
 		@Override
 		public void doCommand(String[] args){

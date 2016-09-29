@@ -18,4 +18,6 @@ public interface View {
 
 	void displaySolution(Solution<Position> sol);
 
+	void displayHint(Solution<Position> sol);
+
 }

@@ -1,8 +1,12 @@
 package guiDemo;
 
 import java.beans.XMLEncoder;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Observable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -17,6 +21,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import Boot.Run;
 import properties.Properties;
 import properties.PropertiesLoader;
 
@@ -78,6 +83,10 @@ public class MenuBar extends Observable{
 	    MenuItem subHintItem = new MenuItem(gameMenu, SWT.PUSH);
 	    subHintItem.setText("Hit Me With a Hint");
 	    
+	    subHintItem.addListener(SWT.Selection, event->{
+	    	setChanged();
+	    	notifyObservers("hint " + currentMaze);
+	    });
 	    MenuItem cascadePropertiesMenu = new MenuItem(menuBar, SWT.CASCADE);
 	    cascadePropertiesMenu.setText("&Properties");
 	    
@@ -206,11 +215,6 @@ public class MenuBar extends Observable{
 		GridLayout layout = new GridLayout(2, false);
 		shell.setLayout(layout);
 		
-//		Label lblPath = new Label(shell, SWT.NONE);
-//		lblPath.setText("Path: ");	
-//		Text txtPath = new Text(shell, SWT.BORDER);
-//		txtPath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
 		Label lblMazeName = new Label(shell, SWT.NONE);
 		lblMazeName.setText("Name: ");	
 		Text txtMazeName = new Text(shell, SWT.BORDER);
@@ -283,7 +287,7 @@ public class MenuBar extends Observable{
 				PropertiesLoader loader= new PropertiesLoader(fileName.getText());	
 				Properties properties = loader.getProperties();
 				try {
-					XMLEncoder xml = new XMLEncoder(new FileOutputStream("Properties.xml"));
+					XMLEncoder xml = new XMLEncoder(new FileOutputStream("resources/Properties.xml"));
 					xml.writeObject(properties);
 					xml.close();
 				} catch (FileNotFoundException e) {
@@ -291,7 +295,35 @@ public class MenuBar extends Observable{
 					e.printStackTrace();
 				}
 				
-				shell.dispose();
+				final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+				File currentJar;
+				try {
+					currentJar = new File(Run.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+					/* is it a jar file? */
+					if(!currentJar.getName().endsWith(".jar"))
+						return;
+					
+					/* Build command: java -jar application.jar */
+					final ArrayList<String> command = new ArrayList<String>();
+					command.add(javaBin);
+					command.add("-jar");
+					command.add(currentJar.getPath());
+					
+					final ProcessBuilder builder = new ProcessBuilder(command);
+					try {
+						builder.start();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.exit(0);
+					shell.dispose();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 			}
 		
 			@Override

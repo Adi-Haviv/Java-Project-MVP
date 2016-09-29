@@ -89,10 +89,16 @@ public class MyView extends Observable implements View, Observer {
 		}
 	}
 	
+	
 	@Override
 	public void update(Observable o, Object arg) {
 			setChanged();
 			notifyObservers(arg);
+	}
+	
+	@Override
+	public void displayHint(Solution<Position> sol){
+		gui.displayHint(sol);
 	}
 	
 	@Override

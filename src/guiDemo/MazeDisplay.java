@@ -45,13 +45,13 @@ public class MazeDisplay extends Canvas {
 			moves.add(s);
 		}
 		if(moves.contains("Up") && moves.contains("Down")){
-			character.setImage("images/PinkyBoth.png");
+			character.setImage("resources/PinkyBoth.png");
 		} else if(moves.contains("Up") && !moves.contains("Down")){
-			character.setImage("images/PinkyUp.png");
+			character.setImage("resources/PinkyUp.png");
 		} else if(!moves.contains("Up") && moves.contains("Down")){
-			character.setImage("images/PinkyDown.png");
+			character.setImage("resources/PinkyDown.png");
 		} else {
-			character.setImage("images/PinkyClear.png");
+			character.setImage("resources/PinkyClear.png");
 		}
 	}
 	public MazeDisplay(Composite fc, int style) {
@@ -169,9 +169,9 @@ public class MazeDisplay extends Canvas {
 				      }
 				   if(maze != null) 
 					   if(character.getPos().equals(maze.getGoalPosition())){
-						   character.setImage("Images/Finish.png");
+						   character.setImage("resources/Finish.png");
 					   } else if(character.getPos().getCoords()[2] == maze.getGoalPosition().getCoords()[2]){
-						   Image img = new Image(null, "Images/Brain.png");
+						   Image img = new Image(null, getClass().getClassLoader().getResourceAsStream("resources/Brain.png"));
 						   e.gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, w * maze.getGoalPosition().getCoords()[0], h * maze.getGoalPosition().getCoords()[1], w, h);
 					   }  
 
@@ -203,6 +203,9 @@ public class MazeDisplay extends Canvas {
 		}
 		
 	
+	}
+	public void displayHint(Solution<Position> sol){
+		//TODO display hint in a helpful way using solution and current position.
 	}
 	
 	private void checkGoal(){

@@ -11,12 +11,10 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
-
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
 
 public class MazeWindow extends Window implements Observer{
 	
@@ -81,6 +79,10 @@ public class MazeWindow extends Window implements Observer{
 	
 	public void setMaze(Maze3d maze){
 		mazeDisplay.setMazeData(maze);
+	}
+	
+	public void displayHint(Solution<Position> sol){
+		mazeDisplay.displayHint(sol);
 	}
 	
 	@Override
