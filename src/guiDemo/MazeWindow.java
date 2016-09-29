@@ -8,6 +8,9 @@ import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
 
 import algorithms.mazeGenerators.Maze3d;
 
@@ -25,7 +28,18 @@ public class MazeWindow extends Window implements Observer{
 		menu.showGenerateMazeOptions(shell);
 
 		mazeDisplay = new MazeDisplay(shell, SWT.BORDER);	
-
+		
+		shell.addListener(SWT.Close, new Listener()
+	    {
+	        public void handleEvent(Event event)
+	        {
+	            int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO;
+	            MessageBox messageBox = new MessageBox(shell, style);
+	            messageBox.setText("Don't You Dare To Give Up!");
+	            messageBox.setMessage("Close the shell?");
+	            event.doit = messageBox.open() == SWT.YES;
+	        }
+	    });
 		mazeDisplay.addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseScrolled(MouseEvent g) {

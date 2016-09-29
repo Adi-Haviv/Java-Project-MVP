@@ -197,10 +197,10 @@ public class MenuBar extends Observable{
 		GridLayout layout = new GridLayout(2, false);
 		shell.setLayout(layout);
 		
-		Label lblPath = new Label(shell, SWT.NONE);
-		lblPath.setText("Path: ");	
-		Text txtPath = new Text(shell, SWT.BORDER);
-		txtPath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+//		Label lblPath = new Label(shell, SWT.NONE);
+//		lblPath.setText("Path: ");	
+//		Text txtPath = new Text(shell, SWT.BORDER);
+//		txtPath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		
 		Label lblMazeName = new Label(shell, SWT.NONE);
 		lblMazeName.setText("Name: ");	
@@ -215,7 +215,7 @@ public class MenuBar extends Observable{
 			public void widgetSelected(SelectionEvent arg0) {
 				currentMaze = txtMazeName.getText();
 				setChanged();
-				notifyObservers("load_maze " + currentMaze + " " + txtPath.getText());
+				notifyObservers("load_maze " + currentMaze);
 				shell.close();
 			}
 			@Override
