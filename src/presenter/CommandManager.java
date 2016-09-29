@@ -128,32 +128,6 @@ public class CommandManager {
 		}
 	}
 
-//	/**
-//	 * This Class defines the objects that will be used for `Save Maze To File` method in class model
-//	 * This Class`s functionality is implement in the doCommand method 
-//	 */
-//	public class SaveMazeToFileCommand implements Command{
-//		@Override
-//		public void doCommand(String[] args){
-//			String name = args[0];
-//			String filename = args[1];
-//			model.saveMazeToFile(name, filename);
-//		}
-//	}
-//
-//	/**
-//	 * This Class defines the objects that will be used for `Load Maze From File` method in class model
-//	 * This Class`s functionality is implement in the doCommand method 
-//	 */
-//	public class LoadMazeFromFileCommand implements Command {
-//		@Override
-//		public void doCommand(String[] args){
-//			String filename = args[0];
-//			String name = args[1];
-//			model.loadMazeFromFile(filename, name);
-//		}
-//	}
-
 	/**
 	 * This Class defines the objects that will be used for `Solve Maze` method in class model
 	 * This Class`s functionality is implement in the doCommand method 
@@ -229,7 +203,7 @@ public class CommandManager {
 			String name = args[0];
 			Maze3d maze = model.getMaze(name);
 			view.displayMaze(maze);
-			view.displayMessage(name + "maze is ready.\n");
+			view.displayMessage(name + " maze is ready.\n");
 		}
 	}
 	

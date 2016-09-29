@@ -24,7 +24,7 @@ public class MazeDisplay extends Canvas {
 	private int[][] crossSection; 
 	private Character character;
 	boolean keyListenerActive = false;
-	KeyListener l;
+	KeyListener keylisten;
 	
 	public void setMazeData(Maze3d maze) {	
 		this.maze = maze;
@@ -61,7 +61,7 @@ public class MazeDisplay extends Canvas {
 		crossSection = new int[1][1];
 		crossSection[0][0] = 0;
 		
-		l = new KeyListener() {
+		keylisten = new KeyListener() {
 			
 			@Override
 			public void keyReleased(KeyEvent arg0) {
@@ -138,7 +138,7 @@ public class MazeDisplay extends Canvas {
 			}
 		};
 		
-		this.addKeyListener(l);
+		this.addKeyListener(keylisten	);
 		keyListenerActive = true;
 		
 		this.addPaintListener(new PaintListener() {
@@ -207,10 +207,10 @@ public class MazeDisplay extends Canvas {
 	
 	private void checkGoal(){
 		if (keyListenerActive == true && character.getPos().equals(maze.getGoalPosition())){
-			this.removeKeyListener(l);
+			this.removeKeyListener(keylisten);
 			keyListenerActive = false;
 		} else if (keyListenerActive == false && !character.getPos().equals(maze.getGoalPosition())){
-			this.addKeyListener(l);
+			this.addKeyListener(keylisten);
 			keyListenerActive = true;
 		}
 	}
