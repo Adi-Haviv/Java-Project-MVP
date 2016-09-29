@@ -11,7 +11,7 @@ public class Character {
 	
 	public Character() {
 		try {
-			img = new Image(null, "Images/PinkyClear.png");
+			img = new Image(null, "Images/Splash.png");
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		}
