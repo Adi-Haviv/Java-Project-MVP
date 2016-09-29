@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="lib/ProjectPartC.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.39-bin.jar"/>
 	<classpathentry kind="lib" path="lib/swt_osx_64.jar"/>
+	<classpathentry kind="lib" path="lib/swt_win_64.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

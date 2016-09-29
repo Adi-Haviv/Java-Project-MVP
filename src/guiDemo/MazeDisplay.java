@@ -111,26 +111,5 @@ public class MazeDisplay extends Canvas {
 				   character.draw(w, h, e.gc);
 			}
 		});
-		
-		/* Irrelevant
-		TimerTask task = new TimerTask() {
-			
-			@Override
-			public void run() {	
-				getDisplay().syncExec(new Runnable() {					
-
-					@Override
-					public void run() {
-						
-						character.moveRight();
-						redraw();
-					}
-				});
-				
-			}
-		};
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(task, 0, 500);*/
 	}
-
 }
