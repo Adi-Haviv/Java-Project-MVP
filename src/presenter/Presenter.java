@@ -8,6 +8,7 @@ import view.View;
 import presenter.CommandManager;
 
 public class Presenter implements Observer {
+		@SuppressWarnings("unused")
 		private Model model;
 		private View view;
 		private CommandManager commandManager;
