@@ -181,7 +181,7 @@ public class MazeDisplay extends Canvas {
 	}
 
 	public void solve(Solution<Position> sol) {
-		int delay = 1000;
+		int delay = 200;
 		for(State<Position> s: sol.getStates()){
 			this.getDisplay().timerExec(delay, new Runnable(){
 				@Override
@@ -199,7 +199,7 @@ public class MazeDisplay extends Canvas {
 				}
 				
 			});
-			delay+=1000;
+			delay+=200;
 		}
 		
 	
